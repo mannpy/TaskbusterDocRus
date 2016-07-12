@@ -72,9 +72,9 @@ language = 'ru'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
-#today = ''
+today = ''
 # Else, today_fmt is used as the format for a strftime call.
-#today_fmt = '%B %d, %Y'
+stoday_fmt = '%B %d, %Y'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -175,10 +175,10 @@ html_static_path = ['_static']
 #html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
-#html_show_sourcelink = True
+html_show_sourcelink = False
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-#html_show_sphinx = True
+html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 #html_show_copyright = True
@@ -310,7 +310,7 @@ epub_copyright = copyright
 
 # The language of the text. It defaults to the language option
 # or 'en' if the language is not set.
-#epub_language = ''
+epub_language = 'ru'
 
 # The scheme of the identifier. Typical schemes are ISBN or URL.
 #epub_scheme = ''
