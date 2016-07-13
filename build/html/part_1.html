@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/taskbuster.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -25,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="Документация TaskbusterDoc 0.01" href="index.html" />
-    <link rel="prev" title="TaskBuster Django Учебник" href="index.html" />
+    <link rel="prev" title="Учебник TaskBuster Django" href="index.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -40,14 +41,44 @@
             
   <div class="section" id="part-i-working-environment-and-start-a-django-project">
 <h1>Part I – Working environment and start a Django Project<a class="headerlink" href="#part-i-working-environment-and-start-a-django-project" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Заголовок содержит главную тему и отделяется символами &#8216;=&#8217;.
-Их количество должно быть не меньше, чем количество символов
-в заголовке.</p>
+<p>Building a good working environment is very important for your productivity. Maybe
+it takes a while to configure, but when it’s well done it’s worth the time!</p>
+<p>For example, virtual environments help you have your packages organized and controlled,
+and a good text editor helps you with variable names, package methods, and syntax highlighting.</p>
+<p>Oh, and If you didn’t read the introduction, this Django tutorial is up-to-date.
+We will use Django 1.8 and Python 3. This doesn’t mean you can’t follow the tutorial
+if you are using an older version. It only means that you will have to work harder
+in your debugging, to solve problems I can’t anticipate here.</p>
 <div class="section" id="building-your-working-environment">
 <h2>Building your Working environment<a class="headerlink" href="#building-your-working-environment" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Подзаголовки отделяются символами &#8216;-&#8216;. Их количество должно
-быть тем же, что и количество символов в подзаголовке
-(так же, как и в случае с заголовками).</p>
+<p>To follow this Django tutorial you will need <span class="red">Python3</span>, the package manager <span class="red">pip3</span>
+and the following packages: <span class="red">virtualenv</span> and <span class="red">virtualenvwrapper</span>.</p>
+</div>
+<div class="section" id="install-django-1-8">
+<h2>Install Django 1.8<a class="headerlink" href="#install-django-1-8" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+<div class="section" id="working-directory-and-sublime-text">
+<h2>Working directory and Sublime Text<a class="headerlink" href="#working-directory-and-sublime-text" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+<div class="section" id="obey-the-testing-goat">
+<h2>Obey the Testing Goat<a class="headerlink" href="#obey-the-testing-goat" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+<div class="section" id="create-a-django-project">
+<h2>Create a Django project<a class="headerlink" href="#create-a-django-project" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+<div class="section" id="start-a-development-server">
+<h2>Start a development server<a class="headerlink" href="#start-a-development-server" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">template</span>
+<span class="kn">from</span> <span class="nn">rango.models</span> <span class="kn">import</span> <span class="n">Category</span>
+
+<span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+
+<span class="nd">@register.inclusion_tag</span><span class="p">(</span><span class="s1">&#39;rango/cats.html&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_category_list</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;cats&#39;</span><span class="p">:</span> <span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()}</span>
+</pre></div>
+</div>
+<p>This is a paragraph that contains <a class="reference external" href="http://example.com/">a link</a>.</p>
 <p>Списки могут быть маркированными:</p>
 <blockquote>
 <div><ul class="simple">
@@ -80,6 +111,11 @@
   <ul>
 <li><a class="reference internal" href="#">Part I – Working environment and start a Django Project</a><ul>
 <li><a class="reference internal" href="#building-your-working-environment">Building your Working environment</a></li>
+<li><a class="reference internal" href="#install-django-1-8">Install Django 1.8</a></li>
+<li><a class="reference internal" href="#working-directory-and-sublime-text">Working directory and Sublime Text</a></li>
+<li><a class="reference internal" href="#obey-the-testing-goat">Obey the Testing Goat</a></li>
+<li><a class="reference internal" href="#create-a-django-project">Create a Django project</a></li>
+<li><a class="reference internal" href="#start-a-development-server">Start a development server</a></li>
 </ul>
 </li>
 </ul>
@@ -87,7 +123,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="предыдущая глава">TaskBuster Django Учебник</a></li>
+      <li>Previous: <a href="index.html" title="предыдущая глава">Учебник TaskBuster Django</a></li>
   </ul></li>
 </ul>
 </div>
