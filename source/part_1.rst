@@ -1,27 +1,107 @@
-Part I – Working environment and start a Django Project
+Часть I – Рабочая среда и начало проекта Django
 =======================================================
-Building a good working environment is very important for your productivity. Maybe
-it takes a while to configure, but when it’s well done it’s worth the time!
+Создание хорошей рабочей среды очень важно для вашей производительности.
+Может быть, это займет некоторое время, для того чтобы настроить ее,
+но когда это хорошо сделано - то стоит потраченного времени!
 
-For example, virtual environments help you have your packages organized and controlled,
-and a good text editor helps you with variable names, package methods, and syntax highlighting.
+Например, виртуальная среда поможет вам держать ваши пакеты организованными и контролируемыми,
+а хороший текстовый редактор поможет вам с именами переменных, методами пакетов, подсветкой синтаксиса.
 
-Oh, and If you didn’t read the introduction, this Django tutorial is up-to-date.
-We will use Django 1.8 and Python 3. This doesn’t mean you can’t follow the tutorial
-if you are using an older version. It only means that you will have to work harder
-in your debugging, to solve problems I can’t anticipate here.
+Да, и если вы не читали введение, этот Django учебник в актуальном состоянии.
+
+Мы будем использовать Django 1.8 и Python 3. Это не означает, что вы не можете
+следовать учебнику, если вы используете старую версию.
+Это означает только то, что вам придется самим находить и устранять, возникающие ошибки,
+чтобы решить проблемы, которые я не могу здесь предвидеть.
+
 
 .. role:: red
+.. |смайл| image:: _static/1f609.png
 
-Building your Working environment
+Создание вашей рабочей среды
 ---------------------------------
-To follow this Django tutorial you will need :red:`Python3`, the package manager :red:`pip3`
-and the following packages: :red:`virtualenv` and :red:`virtualenvwrapper`.
 
-Install Django 1.8
-------------------
+Для того, чтобы следовать этому Django учебнику вам понадобится :red:`Python3`,
+менеджер пакетов :red:`pip3` и следующие пакеты: :red:`virtualenv` и :red:`virtualenvwrapper`.
 
-Working directory and Sublime Text
+.. figure:: _static/taskbuster_toolbox-300x296.jpg
+       :alt: python
+       :align: center
+
+       Комплект инструментов TaskBuster: Python3, pip3, virtualenv, virtualenvwrapper, Git и Sublime Text
+
+Если вы используете Mac OS X вы можете посмотреть этот пост:
+`Установить Python 3 на Mac OS X и использовать virtualenv и virtualenvwrapper <http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html/>`_
+
+Вам также понадобится хороший текстовый редактор для управления всеми файлами
+Django, которые мы будем создавать.
+Я рекомендую Sublime Text, но если вы чувствуете себя комфортно с другим
+текстовым редактором - то вперед!
+Смотрите здесь:
+`как установить и настроить Sublime Text 3 для Django. <http://www.marinamele.com/2014/03/install-and-configure-sublime-text-3.html/>`_
+
+Несмотря на то, что мы будем говорить об этом в следующем посте, нам будет нужен Git,
+система управления пакетами.
+Если более чем один пользователь будет управлять кодом, то я рекомендую вам использовать
+Git репозиторий, такие как `GitHub`_ или `Bitbucket`_ (последний из которых предлагает
+частные репозитории для бесплатных аккаунтов). Вы можете узнать основы о системе Git по этой ссылке
+`Git Tutorial.`_
+
+.. _GitHub: https://github.com/
+.. _Bitbucket: https://bitbucket.org/
+.. _Git Tutorial.: http://www.marinamele.com/2014/07/git-tutorial-create-a-repository-commit-git-branches-and-bitbucket.html
+
+Хорошо, теперь мы готовы начать наш супер-крутой проект Django |смайл|
+
+Установка Django 1.8
+--------------------
+
+Во-первых, мы создадим виртуальную среду с :red:`Python3`, по умолчанию как Python.
+В вашем терминале, введите:
+
+.. code-block:: bash
+
+    $ which python3
+
+чтобы узнать ваш путь к :red:`python3`. В моем случае это было ``/usr/local/bin/python3``. Далее,
+создайте виртуальную среду для разработки, и укажите Python3 как Python по умолчанию
+(напомню, что с virtualenvwrapper виртуальные среды создаются в папке
+:red:`~/.virtualenvs`, независимо от рабочей папки):
+
+.. code-block:: bash
+
+    $ mkvirtualenv --python=/usr/local/bin/python3 tb_dev
+
+Измени свой путь к Python, если он отличается от моего, а также измените имя
+виртуальной среды :red:`tb_dev` на другой, если хотите.
+Вы увидите, что эта виртуальная среда теперь активна - командная оболочка
+будет выглядить как то так: ``(tb_dev)[user@host]$``.
+
+Вы можете отключить виртуальную среду написав:
+
+.. code-block:: bash
+
+    $ deactivate
+
+и активировать заново так:
+
+.. code-block:: bash
+
+    $ workon tb_dev
+
+Обратите внимание, что если вы работаете в этой среде, когда вы вводите :red:`python`
+вы активируете :red:`python3`, и при вызове :red:`pip`, вы вызываете версию python3,
+:red:`pip3`. Круто!
+
+Готовы установить последнюю версию Django?! С активным tb_dev, введите:
+
+.. code-block:: bash
+
+    $ pip install Django==1.8.13
+
+Примечание: Вы можете проверить, есть ли новая версия, доступная `здесь <https://www.djangoproject.com/download//>`_.
+
+Рабочий каталог и Sublime Text
 ----------------------------------
 
 Obey the Testing Goat

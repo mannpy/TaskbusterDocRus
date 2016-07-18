@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Part I – Working environment and start a Django Project &mdash; Документация TaskbusterDoc 0.01</title>
+    <title>Часть I – Рабочая среда и начало проекта Django &mdash; Документация TaskbusterDoc 0.01</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -39,26 +39,79 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="part-i-working-environment-and-start-a-django-project">
-<h1>Part I – Working environment and start a Django Project<a class="headerlink" href="#part-i-working-environment-and-start-a-django-project" title="Ссылка на этот заголовок">¶</a></h1>
-<p>Building a good working environment is very important for your productivity. Maybe
-it takes a while to configure, but when it’s well done it’s worth the time!</p>
-<p>For example, virtual environments help you have your packages organized and controlled,
-and a good text editor helps you with variable names, package methods, and syntax highlighting.</p>
-<p>Oh, and If you didn’t read the introduction, this Django tutorial is up-to-date.
-We will use Django 1.8 and Python 3. This doesn’t mean you can’t follow the tutorial
-if you are using an older version. It only means that you will have to work harder
-in your debugging, to solve problems I can’t anticipate here.</p>
-<div class="section" id="building-your-working-environment">
-<h2>Building your Working environment<a class="headerlink" href="#building-your-working-environment" title="Ссылка на этот заголовок">¶</a></h2>
-<p>To follow this Django tutorial you will need <span class="red">Python3</span>, the package manager <span class="red">pip3</span>
-and the following packages: <span class="red">virtualenv</span> and <span class="red">virtualenvwrapper</span>.</p>
+  <div class="section" id="i-django">
+<h1>Часть I – Рабочая среда и начало проекта Django<a class="headerlink" href="#i-django" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Создание хорошей рабочей среды очень важно для вашей производительности.
+Может быть, это займет некоторое время, для того чтобы настроить ее,
+но когда это хорошо сделано - то стоит потраченного времени!</p>
+<p>Например, виртуальная среда поможет вам держать ваши пакеты организованными и контролируемыми,
+а хороший текстовый редактор поможет вам с именами переменных, методами пакетов, подсветкой синтаксиса.</p>
+<p>Да, и если вы не читали введение, этот Django учебник в актуальном состоянии.</p>
+<p>Мы будем использовать Django 1.8 и Python 3. Это не означает, что вы не можете
+следовать учебнику, если вы используете старую версию.
+Это означает только то, что вам придется самим находить и устранять, возникающие ошибки,
+чтобы решить проблемы, которые я не могу здесь предвидеть.</p>
+<div class="section" id="id1">
+<h2>Создание вашей рабочей среды<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для того, чтобы следовать этому Django учебнику вам понадобится <span class="red">Python3</span>,
+менеджер пакетов <span class="red">pip3</span> и следующие пакеты: <span class="red">virtualenv</span> и <span class="red">virtualenvwrapper</span>.</p>
+<div class="figure align-center" id="id3">
+<img alt="python" src="_images/taskbuster_toolbox-300x296.jpg" />
+<p class="caption"><span class="caption-text">Комплект инструментов TaskBuster: Python3, pip3, virtualenv, virtualenvwrapper, Git и Sublime Text</span></p>
 </div>
-<div class="section" id="install-django-1-8">
-<h2>Install Django 1.8<a class="headerlink" href="#install-django-1-8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если вы используете Mac OS X вы можете посмотреть этот пост:
+<a class="reference external" href="http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html/">Установить Python 3 на Mac OS X и использовать virtualenv и virtualenvwrapper</a></p>
+<p>Вам также понадобится хороший текстовый редактор для управления всеми файлами
+Django, которые мы будем создавать.
+Я рекомендую Sublime Text, но если вы чувствуете себя комфортно с другим
+текстовым редактором - то вперед!
+Смотрите здесь:
+<a class="reference external" href="http://www.marinamele.com/2014/03/install-and-configure-sublime-text-3.html/">как установить и настроить Sublime Text 3 для Django.</a></p>
+<p>Несмотря на то, что мы будем говорить об этом в следующем посте, нам будет нужен Git,
+система управления пакетами.
+Если более чем один пользователь будет управлять кодом, то я рекомендую вам использовать
+Git репозиторий, такие как <a class="reference external" href="https://github.com/">GitHub</a> или <a class="reference external" href="https://bitbucket.org/">Bitbucket</a> (последний из которых предлагает
+частные репозитории для бесплатных аккаунтов). Вы можете узнать основы о системе Git по этой ссылке
+<a class="reference external" href="http://www.marinamele.com/2014/07/git-tutorial-create-a-repository-commit-git-branches-and-bitbucket.html">Git Tutorial.</a></p>
+<p>Хорошо, теперь мы готовы начать наш супер-крутой проект Django <img alt="смайл" src="_images/1f609.png" /></p>
 </div>
-<div class="section" id="working-directory-and-sublime-text">
-<h2>Working directory and Sublime Text<a class="headerlink" href="#working-directory-and-sublime-text" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="django-1-8">
+<h2>Установка Django 1.8<a class="headerlink" href="#django-1-8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Во-первых, мы создадим виртуальную среду с <span class="red">Python3</span>, по умолчанию как Python.
+В вашем терминале, введите:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ which python3
+</pre></div>
+</div>
+<p>чтобы узнать ваш путь к <span class="red">python3</span>. В моем случае это было <code class="docutils literal"><span class="pre">/usr/local/bin/python3</span></code>. Далее,
+создайте виртуальную среду для разработки, и укажите Python3 как Python по умолчанию
+(напомню, что с virtualenvwrapper виртуальные среды создаются в папке
+<span class="red">~/.virtualenvs</span>, независимо от рабочей папки):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span>/usr/local/bin/python3 tb_dev
+</pre></div>
+</div>
+<p>Измени свой путь к Python, если он отличается от моего, а также измените имя
+виртуальной среды <span class="red">tb_dev</span> на другой, если хотите.
+Вы увидите, что эта виртуальная среда теперь активна - командная оболочка
+будет выглядить как то так: <code class="docutils literal"><span class="pre">(tb_dev)[user&#64;host]$</span></code>.</p>
+<p>Вы можете отключить виртуальную среду написав:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ deactivate
+</pre></div>
+</div>
+<p>и активировать заново так:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ workon tb_dev
+</pre></div>
+</div>
+<p>Обратите внимание, что если вы работаете в этой среде, когда вы вводите <span class="red">python</span>
+вы активируете <span class="red">python3</span>, и при вызове <span class="red">pip</span>, вы вызываете версию python3,
+<span class="red">pip3</span>. Круто!</p>
+<p>Готовы установить последнюю версию Django?! С активным tb_dev, введите:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install <span class="nv">Django</span><span class="o">==</span>1.8.13
+</pre></div>
+</div>
+<p>Примечание: Вы можете проверить, есть ли новая версия, доступная <a class="reference external" href="https://www.djangoproject.com/download//">здесь</a>.</p>
+</div>
+<div class="section" id="sublime-text">
+<h2>Рабочий каталог и Sublime Text<a class="headerlink" href="#sublime-text" title="Ссылка на этот заголовок">¶</a></h2>
 </div>
 <div class="section" id="obey-the-testing-goat">
 <h2>Obey the Testing Goat<a class="headerlink" href="#obey-the-testing-goat" title="Ссылка на этот заголовок">¶</a></h2>
@@ -109,10 +162,10 @@ and the following packages: <span class="red">virtualenv</span> and <span class=
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Оглавление</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Part I – Working environment and start a Django Project</a><ul>
-<li><a class="reference internal" href="#building-your-working-environment">Building your Working environment</a></li>
-<li><a class="reference internal" href="#install-django-1-8">Install Django 1.8</a></li>
-<li><a class="reference internal" href="#working-directory-and-sublime-text">Working directory and Sublime Text</a></li>
+<li><a class="reference internal" href="#">Часть I – Рабочая среда и начало проекта Django</a><ul>
+<li><a class="reference internal" href="#id1">Создание вашей рабочей среды</a></li>
+<li><a class="reference internal" href="#django-1-8">Установка Django 1.8</a></li>
+<li><a class="reference internal" href="#sublime-text">Рабочий каталог и Sublime Text</a></li>
 <li><a class="reference internal" href="#obey-the-testing-goat">Obey the Testing Goat</a></li>
 <li><a class="reference internal" href="#create-a-django-project">Create a Django project</a></li>
 <li><a class="reference internal" href="#start-a-development-server">Start a development server</a></li>
