@@ -51,6 +51,7 @@
    :maxdepth: 2
 
    part_1
+   part_2
 
 
 Indices and tables
