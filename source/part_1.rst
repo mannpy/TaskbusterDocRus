@@ -21,6 +21,9 @@
 .. role:: orange
 .. |смайл| image:: _static/1f609.png
 .. |smile| image:: _static/1f642.png
+.. |br| raw:: html
+
+   <br />
 
 Создание вашей рабочей среды
 ----------------------------
@@ -107,7 +110,7 @@ Git репозиторий, такие как `GitHub`_ или `Bitbucket`_ (п�
 Примечание: Вы можете проверить, есть ли новая версия, доступная `здесь <https://www.djangoproject.com/download//>`_.
 
 Рабочий каталог и Sublime Text
-----------------------------------
+------------------------------
 
 Создайте новую папку на вашем компьютере, названную :red:`taskbuster_project`:
 
@@ -142,62 +145,66 @@ Git репозиторий, такие как `GitHub`_ или `Bitbucket`_ (п�
 Повинуйтесь козе тестирования
 -----------------------------
 
-I am reading an incredible book:
+Я читаю невероятную книгу:
 `Test-Driven development with Python <http://www.obeythetestinggoat.com/>`_,
-by Harry J.W. Percival. And it says that you must obey the :redbold:`Testing Goat` — a
-little voice in your head that tells you to write a test before writing any
-code. :bolditalic:`Test first, test first!`
+(Разработка через тестирование с помощью Python)
+Гарри Дж.В. Персиваля (Harry J.W. Percival). И в ней говорится, что вы должны
+подчиняться козе тестирования (:redbold:`Testing Goat`) — небольшому голосу в вашей
+голове, которая говорит вам писать тест, прежде чем написать код.
+:bolditalic:`Сначала тест, Сначала тест!`
 
 .. figure:: _static/obey_the_testing_goat-300x290.jpg
        :alt: testing goat
        :align: center
 
-       Obey the testing Goat
-       Test first, test first!
+       Повинуйтесь козе тестирования. |br|
+       Сначала тест, Сначала тест!
 
-And this is what we will do here, before creating any Django project…
+И это то, что мы будем делать здесь, перед созданием любого проекта Django…
 
-We know that when we create successfully a Django project, we get the usual
-:bolditalic:`It worked!` Django blue page when we go to the localhost :red:`http://127.0.0.1:8000`.
-If we inspect this page, we will see that in its head section, the title tag
-is ``<title>Welcome to Django</title>`` I know, you can’t see that because you
-haven’t created any project yet! You will have to trust me for now |смайл|
+Мы знаем, что, когда мы успешно создаем проект, мы получаем обычную синюю страницу Django:
+:bolditalic:`It worked!` ("Все заработало"), когда мы направляемся по ссылке :red:`http://127.0.0.1:8000`.
+Если мы изучим эту страницу, то увидим, что в ее головной части, тег заголовка title
+имеет такой вид: ``<title>Welcome to Django</title>``. Я знаю, вы не можете видеть это,
+потому что вы еще не создавали ни одного проекта! Вам придется сейчас доверять мне |смайл|
 
 .. figure:: _static/taskbuster_part1_it_worked.png
        :alt: it worked!
        :align: center
 
-So let’s write a test that asserts than when we go to :red:`http://127.0.0.1:8000` we
-get a page with :bolditalic:`Welcome to Django` in its title. Of course, this test will fail,
-because we don’t have any project defined yet! But that’s what’s all about:
-create your test first, and then the code.
+Так давайте напишем тест, который утверждает, что когда мы переходим по адресу
+:red:`http://127.0.0.1:8000` мы получаем страницу с :bolditalic:`Welcome to Django`
+(Добро пожаловать в Джанго) в его названии. Конечно, этот тест потерпит неудачу,
+потому что у нас еще нет определенного проекта! Но это как раз то, о чем мы говорили:
+создаем свой тест сначала, а затем код.
 
-First, we will create another virtual environment for testing, with Django 1.8 in it:
+Во-первых, мы создадим еще одну виртуальную среду для тестирования, с Django 1.8 в нем:
 
 .. code-block:: bash
 
     $ mkvirtualenv --python=/usr/local/bin/python3 tb_test
     $ pip install Django==1.8
 
-Next, in order to simulate a browser for our testing, we will use the :red:`Selenium`
-package (before installing it you will need to have Firefox):
+Далее, для того, чтобы имитировать работу браузера для нашего тестирования,
+мы будем использовать пакет :red:`Selenium` (перед его установкой вам нужно будет иметь браузер Firefox):
 
 .. code-block:: bash
 
     $ pip install --upgrade selenium
 
-Go inside the :red:`taskbuster_project` folder and create a folder for the **functional tests.**
-This folder will contain all the files that **test the project functionality from the user point of view.**
-Create also the file :red:`all_users.py` in it:
+Перейдите в папку :red:`taskbuster_project` и создайте папку для **функциональных тестов**.
+Эта папка будет содержать все файлы, которые
+**проверяют функциональность проекта с точки зрения пользователя.**
+Создайте также файл :red:`all_users.py` в нем:
 
 .. code-block:: bash
 
     $ cd taskbuster_project
-    $ mkdir functional_tests
+    $ mkdir functional_tests # создаем папку функциональных тестов
     $ cd functional_tests
     $ touch all_users.py
 
-Edit this file with your editor and write:
+Откройте этот файл с помощью вашего редактора и напишите в нем:
 
 .. code-block:: python
     :linenos:
@@ -223,111 +230,115 @@ Edit this file with your editor and write:
     if __name__ == '__main__':
         unittest.main(warnings='ignore')
 
-Let’s analyze the previous code step by step:
+Давайте проанализируем этот код шаг за шагом:
 
-* The first line indicates the coding of the file
-* Then, it imports :orange:`selenium` and :orange:`unittest`, a Python library for testing
-* It creates a :orange:`TestCase` class, named :orange:`NewVisitorTest`, with:
-    * a :orange:`setUp` method that initializes the test. It opens the browser and it waits for 3 seconds if needs to (if the page is not loaded).
-    * a :orange:`tearDown` method that runs after each test. It closes the browser.
-    * a method that starts with test and that asserts that the title of the webpage has :bolditalic:`Welcome to Django` in it.
-* The :orange:`setUp` and :orange:`tearDown` methods run at the beginning and at the end of each test method (the ones that start with the word test).
-* The final lines mean that only if Python runs the file directly (not imported) it will execute the function :orange:`unittest.main()`. This function launches the :red:`unittest Test runner`, that identifies the different tests defined by looking for methods that start with test.
-* We call the :orange:`unittest.main()` function with the optional parameter :orange:`warnings=’ignore’` to avoid a ResourceWarning message.
+* Первая строка указывает кодировку файла
+* Затем импортируется модули :orange:`selenium` и :orange:`unittest` - библиотека Python для тестирования
+* Далее создается класс :orange:`TestCase`, с именем :orange:`NewVisitorTest`, в котором:
+    * метод :orange:`setUp` который иниализирует тест. Он открывает браузер и ждет 3 секунды, при необходимости.(если страница не загружена).
+    * метод :orange:`tearDown`, который запускается после каждого теста. Он закрывает браузер.
+    * метод, который начинается со слова test (тест), он утверждает, что заголовок веб-страницы имеет такой вид: :bolditalic:`Welcome to Django`.
+* Методы :orange:`setUp` и :orange:`tearDown` выполняются в начале и в конце каждого метода теста (те, которые начинаются со слова test).
+* Последние строки означают, что Python выполнит функцию :orange:`unittest.main()` только тогда, когда файл запускается напрямую (не импортируется). Эта функция запускает :red:`исполнителя теста unittest (Test runner)`, который идентифицирует различные тесты, отбирая методы, которые начинаются со слова test.
+* Мы вызываем функцию :orange:`unittest.main()` с дополнительными параметрами :orange:`warnings=’ignore’` (предупреждения = 'игнорировать'), чтобы избежать сообщения ResourceWarning.
 
-Let’s run this script with
+Давайте запустим этот скрипт:
 
 .. code-block:: bash
 
     $ python all_users.py
 
-The resulting output shows how the test, obviously, fails. You will see something like
+Результат показывает, как тестирование, очевидно, терпит неудачу. Вы увидите что-то подобное
 
 .. code-block:: bash
 
     FAIL: test_it_worked (__main__.NewVisitorTest)
 
-and an :red:`AssertionError` with the message :bolditalic:`Welcome to Django` not found.
+и :red:`AssertionError` с сообщением :bolditalic:`Welcome to Django` не найдено.
 
-So let’s create a Django project and make this test pass!
+Итак, давайте создадим проект Django и сделаем так, чтобы этот тест прошел!
 
 Создаем проект Django
 ---------------------
 
-Get inside the :red:`taskbuster_project` folder and type:
+Зайдите внутрь папки :red:`taskbuster_project` и наберите:
 
 .. code-block:: bash
 
-    $ django-admin.py startproject taskbuster
+    $ django-admin.py startproject taskbuster .
 
-Note the dot at the end of the command, this will create the project
-taskbuster without creating any additional folders. The current structure of
-your top folder should be:
+Обратите внимание на точку в конце команды, это создаст проект taskbuster,
+не создавая дополнительных папок.
+(Точка крайне важна, потому что это говорит скрипту устанавливать проект Django
+в вашем текущем каталоге, который и обозначается сокращённо точкой ``.``)
+Текущая структура вашей главной папки должна быть:
 
 .. figure:: _static/taskbuster_part1_folder_structure.png
        :alt: folder_structure
        :align: center
 
-Note: this picture shows the output of my terminal when using the tree command
-(if you want to use it, you may have to install it first).
+Примечание: это изображение показывает вывод моего терминала при использовании древовидной команды
+(tree command). Если Вы хотите использовать его, вам, вероятно, придется сначала его установить.
 
-As you can see, we have created:
+Как вы видите, мы создали:
 
-* the :red:`manage.py` file, used to manage the development server, database migrations, custom scripts, etc.
-* the taskbuster folder, which contains:
-    * :red:`__init__.py` file indicating that this folder is a Python package
-    * :red:`settings.py` file, used to configure the project
-    * :red:`urls.py`, used to relate urls with views
-    * and the :red:`wsgi.py` file, used to configure Django’s deployment.
+* файл :red:`manage.py`, используемый для управления сервером разработки, миграциями базы данных, пользовательскими скриптами, и т.д.
+* папка taskbuster, которая содержит:
+    * файл :red:`__init__.py`, указывающий, что эта папка представляет собой python-пакет
+    * файл :red:`settings.py`, используемый для настройки проекта
+    * :red:`urls.py`, используемый для связывания URL-адресов с представлениями (views).
+    * и файл :red:`wsgi.py`, используемый для настройки развертывания Django.
 
-Later in this tutorial, you will see that the taskbuster folder will also
-contain all our apps, templates, static files and other files related to our project.
+Далее в этом учебнике, вы увидите, что папка taskbuster также будет содержать все
+наши приложения, шаблоны, статические и другие файлы, относящиеся к нашему проекту.
 
 Запуск сервера разработки
 -------------------------
 
-Once we have the project created, we can start the development server.
-Open a tab in your terminal with the :red:`tb_dev` environment activated, go inside
-the :red:`taskbuster_project` folder and run
+После того, как создали проект, мы можем запустить сервер разработки.
+Откройте вкладку в своем терминале с активированной средой :red:`tb_dev`,
+перейдите в папку :red:`taskbuster_project` и запустите
 
 .. code-block:: bash
 
     $ python manage.py runserver
 
-You might see a warning about migrations, but don’t worry, we’ll get to that
-latter in this tutorial. At the end of the output you might see something like
+Может появиться предупреждение о миграции, но не волнуйтесь, мы вернемся к этому позже
+в этом учебнике. В конце вывода вы можете увидеть что-то вроде
 
 .. code-block:: bash
 
     Starting development server at http://127.0.0.1:8000/.
 
-You can open a browser and check this url to see the :bolditalic:`It worked Django`
-message, but I rather prefer to use the test we have created |smile|
+Вы можете открыть браузер и проверить этот url-адрес, чтобы увидеть сообщение
+:bolditalic:`It worked Django`, но я скорее предпочитаю использовать тест,
+который мы создали |smile|
 
-Open another terminal tab (with ctrl+t or cmd+t) and activate the :red:`tb_test`
-envrironment. Now, let’s run our test:
+Откройте другую вкладку терминала (с помощью ctrl+t или cmd+t) и активируйте среду
+:red:`tb_test`. Теперь, давайте запустим наш тест:
 
 .. code-block:: bash
 
     $ python functional_tests/all_users.py
 
-And now you should see the message:
+И теперь вы должны увидеть сообщение:
 
 .. code-block:: bash
 
     Ran 1 test in 0.05s
     OK
 
-indicating that your test passed! |smile|
+показывающее, что тест пройден! |smile|
 
-Now it would be a good moment to start a Git repository and start the version
-control of your code. However, before going into that we need to talk about
-Security. :redbold:`We want to keep the Secret Keys out of the version control`,
-to maintain them… *Secret*!
+Сейчас это был бы подходящий момент, чтобы начать использовать git-репозиторий и
+запустить систему контроля версий кода. Однако, прежде чем углубляться в это,
+мы должны поговорить о безопасности.
+:redbold:`Мы хотим скрыть Секретные Ключи от системы управления версиями`,
+чтобы сохранить их… *В тайне*!
 
-And you will learn how to do that on the next part of the tutorial,
-:doc:`Settings files and Version control </part_2>`
+И вы узнаете, как это сделать в следующей части учебника,
+:doc:`Файлы настроек и Управление Версиями </part_2>`
 
-Don’t miss it! |смайл|
+Не пропустите это! |смайл|
 
-Please help me and share it to your friends, they might find it useful too! |смайл|
+Пожалуйста, помогите мне и поделитесь с этим с друзьями, они также могли бы счесть это полезным! |смайл|

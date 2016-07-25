@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="Документация TaskbusterDoc 0.01" href="index.html" />
-    <link rel="next" title="Часть I – Settings files and Version Control" href="part_2.html" />
+    <link rel="next" title="Часть I – Файлы настроек и Управление Версиями" href="part_2.html" />
     <link rel="prev" title="Учебник TaskBuster Django" href="index.html" />
    
   
@@ -138,49 +138,53 @@ Git репозиторий, такие как <a class="reference external" href
 </div>
 <div class="section" id="id3">
 <h2>Повинуйтесь козе тестирования<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
-<p>I am reading an incredible book:
+<p>Я читаю невероятную книгу:
 <a class="reference external" href="http://www.obeythetestinggoat.com/">Test-Driven development with Python</a>,
-by Harry J.W. Percival. And it says that you must obey the <span class="redbold">Testing Goat</span> — a
-little voice in your head that tells you to write a test before writing any
-code. <span class="bolditalic">Test first, test first!</span></p>
+(Разработка через тестирование с помощью Python)
+Гарри Дж.В. Персиваля (Harry J.W. Percival). И в ней говорится, что вы должны
+подчиняться козе тестирования (<span class="redbold">Testing Goat</span>) — небольшому голосу в вашей
+голове, которая говорит вам писать тест, прежде чем написать код.
+<span class="bolditalic">Сначала тест, Сначала тест!</span></p>
 <div class="figure align-center" id="id6">
 <img alt="testing goat" src="_images/obey_the_testing_goat-300x290.jpg" />
-<p class="caption"><span class="caption-text">Obey the testing Goat
-Test first, test first!</span></p>
+<p class="caption"><span class="caption-text">Повинуйтесь козе тестирования. <br />
+Сначала тест, Сначала тест!</span></p>
 </div>
-<p>And this is what we will do here, before creating any Django project…</p>
-<p>We know that when we create successfully a Django project, we get the usual
-<span class="bolditalic">It worked!</span> Django blue page when we go to the localhost <span class="red">http://127.0.0.1:8000</span>.
-If we inspect this page, we will see that in its head section, the title tag
-is <code class="docutils literal"><span class="pre">&lt;title&gt;Welcome</span> <span class="pre">to</span> <span class="pre">Django&lt;/title&gt;</span></code> I know, you can’t see that because you
-haven’t created any project yet! You will have to trust me for now <img alt="смайл" src="_images/1f609.png" /></p>
+<p>И это то, что мы будем делать здесь, перед созданием любого проекта Django…</p>
+<p>Мы знаем, что, когда мы успешно создаем проект, мы получаем обычную синюю страницу Django:
+<span class="bolditalic">It worked!</span> (&#8220;Все заработало&#8221;), когда мы направляемся по ссылке <span class="red">http://127.0.0.1:8000</span>.
+Если мы изучим эту страницу, то увидим, что в ее головной части, тег заголовка title
+имеет такой вид: <code class="docutils literal"><span class="pre">&lt;title&gt;Welcome</span> <span class="pre">to</span> <span class="pre">Django&lt;/title&gt;</span></code>. Я знаю, вы не можете видеть это,
+потому что вы еще не создавали ни одного проекта! Вам придется сейчас доверять мне <img alt="смайл" src="_images/1f609.png" /></p>
 <div class="figure align-center">
 <img alt="it worked!" src="_images/taskbuster_part1_it_worked.png" />
 </div>
-<p>So let’s write a test that asserts than when we go to <span class="red">http://127.0.0.1:8000</span> we
-get a page with <span class="bolditalic">Welcome to Django</span> in its title. Of course, this test will fail,
-because we don’t have any project defined yet! But that’s what’s all about:
-create your test first, and then the code.</p>
-<p>First, we will create another virtual environment for testing, with Django 1.8 in it:</p>
+<p>Так давайте напишем тест, который утверждает, что когда мы переходим по адресу
+<span class="red">http://127.0.0.1:8000</span> мы получаем страницу с <span class="bolditalic">Welcome to Django</span>
+(Добро пожаловать в Джанго) в его названии. Конечно, этот тест потерпит неудачу,
+потому что у нас еще нет определенного проекта! Но это как раз то, о чем мы говорили:
+создаем свой тест сначала, а затем код.</p>
+<p>Во-первых, мы создадим еще одну виртуальную среду для тестирования, с Django 1.8 в нем:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span>/usr/local/bin/python3 tb_test
 $ pip install <span class="nv">Django</span><span class="o">==</span>1.8
 </pre></div>
 </div>
-<p>Next, in order to simulate a browser for our testing, we will use the <span class="red">Selenium</span>
-package (before installing it you will need to have Firefox):</p>
+<p>Далее, для того, чтобы имитировать работу браузера для нашего тестирования,
+мы будем использовать пакет <span class="red">Selenium</span> (перед его установкой вам нужно будет иметь браузер Firefox):</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install --upgrade selenium
 </pre></div>
 </div>
-<p>Go inside the <span class="red">taskbuster_project</span> folder and create a folder for the <strong>functional tests.</strong>
-This folder will contain all the files that <strong>test the project functionality from the user point of view.</strong>
-Create also the file <span class="red">all_users.py</span> in it:</p>
+<p>Перейдите в папку <span class="red">taskbuster_project</span> и создайте папку для <strong>функциональных тестов</strong>.
+Эта папка будет содержать все файлы, которые
+<strong>проверяют функциональность проекта с точки зрения пользователя.</strong>
+Создайте также файл <span class="red">all_users.py</span> в нем:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> taskbuster_project
-$ mkdir functional_tests
+$ mkdir functional_tests <span class="c1"># создаем папку функциональных тестов</span>
 $ <span class="nb">cd</span> functional_tests
 $ touch all_users.py
 </pre></div>
 </div>
-<p>Edit this file with your editor and write:</p>
+<p>Откройте этот файл с помощью вашего редактора и напишите в нем:</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -222,107 +226,111 @@ $ touch all_users.py
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">warnings</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 </td></tr></table></div>
-<p>Let’s analyze the previous code step by step:</p>
+<p>Давайте проанализируем этот код шаг за шагом:</p>
 <ul>
-<li><p class="first">The first line indicates the coding of the file</p>
+<li><p class="first">Первая строка указывает кодировку файла</p>
 </li>
-<li><p class="first">Then, it imports <span class="orange">selenium</span> and <span class="orange">unittest</span>, a Python library for testing</p>
+<li><p class="first">Затем импортируется модули <span class="orange">selenium</span> и <span class="orange">unittest</span> - библиотека Python для тестирования</p>
 </li>
 <li><dl class="first docutils">
-<dt>It creates a <span class="orange">TestCase</span> class, named <span class="orange">NewVisitorTest</span>, with:</dt>
+<dt>Далее создается класс <span class="orange">TestCase</span>, с именем <span class="orange">NewVisitorTest</span>, в котором:</dt>
 <dd><ul class="first last simple">
-<li>a <span class="orange">setUp</span> method that initializes the test. It opens the browser and it waits for 3 seconds if needs to (if the page is not loaded).</li>
-<li>a <span class="orange">tearDown</span> method that runs after each test. It closes the browser.</li>
-<li>a method that starts with test and that asserts that the title of the webpage has <span class="bolditalic">Welcome to Django</span> in it.</li>
+<li>метод <span class="orange">setUp</span> который иниализирует тест. Он открывает браузер и ждет 3 секунды, при необходимости.(если страница не загружена).</li>
+<li>метод <span class="orange">tearDown</span>, который запускается после каждого теста. Он закрывает браузер.</li>
+<li>метод, который начинается со слова test (тест), он утверждает, что заголовок веб-страницы имеет такой вид: <span class="bolditalic">Welcome to Django</span>.</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p class="first">The <span class="orange">setUp</span> and <span class="orange">tearDown</span> methods run at the beginning and at the end of each test method (the ones that start with the word test).</p>
+<li><p class="first">Методы <span class="orange">setUp</span> и <span class="orange">tearDown</span> выполняются в начале и в конце каждого метода теста (те, которые начинаются со слова test).</p>
 </li>
-<li><p class="first">The final lines mean that only if Python runs the file directly (not imported) it will execute the function <span class="orange">unittest.main()</span>. This function launches the <span class="red">unittest Test runner</span>, that identifies the different tests defined by looking for methods that start with test.</p>
+<li><p class="first">Последние строки означают, что Python выполнит функцию <span class="orange">unittest.main()</span> только тогда, когда файл запускается напрямую (не импортируется). Эта функция запускает <span class="red">исполнителя теста unittest (Test runner)</span>, который идентифицирует различные тесты, отбирая методы, которые начинаются со слова test.</p>
 </li>
-<li><p class="first">We call the <span class="orange">unittest.main()</span> function with the optional parameter <span class="orange">warnings=’ignore’</span> to avoid a ResourceWarning message.</p>
+<li><p class="first">Мы вызываем функцию <span class="orange">unittest.main()</span> с дополнительными параметрами <span class="orange">warnings=’ignore’</span> (предупреждения = &#8216;игнорировать&#8217;), чтобы избежать сообщения ResourceWarning.</p>
 </li>
 </ul>
-<p>Let’s run this script with</p>
+<p>Давайте запустим этот скрипт:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ python all_users.py
 </pre></div>
 </div>
-<p>The resulting output shows how the test, obviously, fails. You will see something like</p>
+<p>Результат показывает, как тестирование, очевидно, терпит неудачу. Вы увидите что-то подобное</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>FAIL: test_it_worked <span class="o">(</span>__main__.NewVisitorTest<span class="o">)</span>
 </pre></div>
 </div>
-<p>and an <span class="red">AssertionError</span> with the message <span class="bolditalic">Welcome to Django</span> not found.</p>
-<p>So let’s create a Django project and make this test pass!</p>
+<p>и <span class="red">AssertionError</span> с сообщением <span class="bolditalic">Welcome to Django</span> не найдено.</p>
+<p>Итак, давайте создадим проект Django и сделаем так, чтобы этот тест прошел!</p>
 </div>
 <div class="section" id="django">
 <h2>Создаем проект Django<a class="headerlink" href="#django" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Get inside the <span class="red">taskbuster_project</span> folder and type:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ django-admin.py startproject taskbuster
+<p>Зайдите внутрь папки <span class="red">taskbuster_project</span> и наберите:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ django-admin.py startproject taskbuster .
 </pre></div>
 </div>
-<p>Note the dot at the end of the command, this will create the project
-taskbuster without creating any additional folders. The current structure of
-your top folder should be:</p>
+<p>Обратите внимание на точку в конце команды, это создаст проект taskbuster,
+не создавая дополнительных папок.
+(Точка крайне важна, потому что это говорит скрипту устанавливать проект Django
+в вашем текущем каталоге, который и обозначается сокращённо точкой <code class="docutils literal"><span class="pre">.</span></code>)
+Текущая структура вашей главной папки должна быть:</p>
 <div class="figure align-center">
 <img alt="folder_structure" src="_images/taskbuster_part1_folder_structure.png" />
 </div>
-<p>Note: this picture shows the output of my terminal when using the tree command
-(if you want to use it, you may have to install it first).</p>
-<p>As you can see, we have created:</p>
+<p>Примечание: это изображение показывает вывод моего терминала при использовании древовидной команды
+(tree command). Если Вы хотите использовать его, вам, вероятно, придется сначала его установить.</p>
+<p>Как вы видите, мы создали:</p>
 <ul>
-<li><p class="first">the <span class="red">manage.py</span> file, used to manage the development server, database migrations, custom scripts, etc.</p>
+<li><p class="first">файл <span class="red">manage.py</span>, используемый для управления сервером разработки, миграциями базы данных, пользовательскими скриптами, и т.д.</p>
 </li>
 <li><dl class="first docutils">
-<dt>the taskbuster folder, which contains:</dt>
+<dt>папка taskbuster, которая содержит:</dt>
 <dd><ul class="first last simple">
-<li><span class="red">__init__.py</span> file indicating that this folder is a Python package</li>
-<li><span class="red">settings.py</span> file, used to configure the project</li>
-<li><span class="red">urls.py</span>, used to relate urls with views</li>
-<li>and the <span class="red">wsgi.py</span> file, used to configure Django’s deployment.</li>
+<li>файл <span class="red">__init__.py</span>, указывающий, что эта папка представляет собой python-пакет</li>
+<li>файл <span class="red">settings.py</span>, используемый для настройки проекта</li>
+<li><span class="red">urls.py</span>, используемый для связывания URL-адресов с представлениями (views).</li>
+<li>и файл <span class="red">wsgi.py</span>, используемый для настройки развертывания Django.</li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
-<p>Later in this tutorial, you will see that the taskbuster folder will also
-contain all our apps, templates, static files and other files related to our project.</p>
+<p>Далее в этом учебнике, вы увидите, что папка taskbuster также будет содержать все
+наши приложения, шаблоны, статические и другие файлы, относящиеся к нашему проекту.</p>
 </div>
 <div class="section" id="id4">
 <h2>Запуск сервера разработки<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
-<p>Once we have the project created, we can start the development server.
-Open a tab in your terminal with the <span class="red">tb_dev</span> environment activated, go inside
-the <span class="red">taskbuster_project</span> folder and run</p>
+<p>После того, как создали проект, мы можем запустить сервер разработки.
+Откройте вкладку в своем терминале с активированной средой <span class="red">tb_dev</span>,
+перейдите в папку <span class="red">taskbuster_project</span> и запустите</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ python manage.py runserver
 </pre></div>
 </div>
-<p>You might see a warning about migrations, but don’t worry, we’ll get to that
-latter in this tutorial. At the end of the output you might see something like</p>
+<p>Может появиться предупреждение о миграции, но не волнуйтесь, мы вернемся к этому позже
+в этом учебнике. В конце вывода вы можете увидеть что-то вроде</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>Starting development server at http://127.0.0.1:8000/.
 </pre></div>
 </div>
-<p>You can open a browser and check this url to see the <span class="bolditalic">It worked Django</span>
-message, but I rather prefer to use the test we have created <img alt="smile" src="_images/1f642.png" /></p>
-<p>Open another terminal tab (with ctrl+t or cmd+t) and activate the <span class="red">tb_test</span>
-envrironment. Now, let’s run our test:</p>
+<p>Вы можете открыть браузер и проверить этот url-адрес, чтобы увидеть сообщение
+<span class="bolditalic">It worked Django</span>, но я скорее предпочитаю использовать тест,
+который мы создали <img alt="smile" src="_images/1f642.png" /></p>
+<p>Откройте другую вкладку терминала (с помощью ctrl+t или cmd+t) и активируйте среду
+<span class="red">tb_test</span>. Теперь, давайте запустим наш тест:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ python functional_tests/all_users.py
 </pre></div>
 </div>
-<p>And now you should see the message:</p>
+<p>И теперь вы должны увидеть сообщение:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>Ran <span class="m">1</span> <span class="nb">test</span> in 0.05s
 OK
 </pre></div>
 </div>
-<p>indicating that your test passed! <img alt="smile" src="_images/1f642.png" /></p>
-<p>Now it would be a good moment to start a Git repository and start the version
-control of your code. However, before going into that we need to talk about
-Security. <span class="redbold">We want to keep the Secret Keys out of the version control</span>,
-to maintain them… <em>Secret</em>!</p>
-<p>And you will learn how to do that on the next part of the tutorial,
-<a class="reference internal" href="part_2.html"><span class="doc">Settings files and Version control</span></a></p>
-<p>Don’t miss it! <img alt="смайл" src="_images/1f609.png" /></p>
-<p>Please help me and share it to your friends, they might find it useful too! <img alt="смайл" src="_images/1f609.png" /></p>
+<p>показывающее, что тест пройден! <img alt="smile" src="_images/1f642.png" /></p>
+<p>Сейчас это был бы подходящий момент, чтобы начать использовать git-репозиторий и
+запустить систему контроля версий кода. Однако, прежде чем углубляться в это,
+мы должны поговорить о безопасности.
+<span class="redbold">Мы хотим скрыть Секретные Ключи от системы управления версиями</span>,
+чтобы сохранить их… <em>В тайне</em>!</p>
+<p>И вы узнаете, как это сделать в следующей части учебника,
+<a class="reference internal" href="part_2.html"><span class="doc">Файлы настроек и Управление Версиями</span></a></p>
+<p>Не пропустите это! <img alt="смайл" src="_images/1f609.png" /></p>
+<p>Пожалуйста, помогите мне и поделитесь с этим с друзьями, они также могли бы счесть это полезным! <img alt="смайл" src="_images/1f609.png" /></p>
 </div>
 </div>
 
@@ -349,7 +357,7 @@ to maintain them… <em>Secret</em>!</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="предыдущая глава">Учебник TaskBuster Django</a></li>
-      <li>Next: <a href="part_2.html" title="следующая глава">Часть I – Settings files and Version Control</a></li>
+      <li>Next: <a href="part_2.html" title="следующая глава">Часть I – Файлы настроек и Управление Версиями</a></li>
   </ul></li>
 </ul>
 </div>
