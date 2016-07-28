@@ -2,7 +2,11 @@
     color: #a64d79;
 }
 
-.bolditalic, .redbold {
+.redbold {
+    font-weight: bold;
+}
+
+.bolditalic {
     font-weight: bold;
     font-style: italic;
 }
