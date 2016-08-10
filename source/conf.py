@@ -121,7 +121,8 @@ html_theme = 'alabaster'
 # documentation.
 html_theme_options = {
     'show_powered_by': False,
-    'font_family': 'minion pro'
+    'font_family': 'Times New Roman, Georgia, Times,serif;',
+    'body_text_align': 'justify'
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
