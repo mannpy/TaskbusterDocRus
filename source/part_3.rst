@@ -12,20 +12,21 @@
 
    <br />
 
-Once we have our working environment set, we can focus
-on **creating the Home page** of our site.
+После того, как мы установили нашу рабочую среду, мы можем
+сосредоточиться на **создании домашней страницы** нашего сайта.
 
-However, this won’t be the usual blank home page with only “hello world” in it.
+Однако, это не будет обычной пустой домашней страницей
+с одной только надписью “привет мир” в ней.
 
-We will configure both static files and templates,
-implement HTML5 Boilerplate and Twitter Bootstrap,
-and create an **much better** version of the usual home page
-(yeah, it will have hello world in it too…)
+Мы настроим как статические файлы, так и шаблоны,
+внедрим шаблон HTML5 и фреймворк Twitter Bootstrap,
+и создадим **намного лучшую** версию обычной домашней страницы
+(да, она также будет иметь надпись "привет мир"...)
 
-Moreover, we will obey the Testing Goat and follow **Test Driven Development**
-(TDD) to create the Home Page. You’ll learn a lot here! |;)|
+К тому же, мы будем подчиняться Козе Тестирования и следовать **Разработке Через Тестирование**
+(РЧТ), чтобы создать домашнюю страницу. Здесь вы узнаете много интересного! |;)|
 
-Here’s what we will cover:
+Вот то, что мы рассмотрим:
 
 * :ref:`Static-Files-Settings`
 * :ref:`Templates-Settings`
@@ -36,58 +37,57 @@ Here’s what we will cover:
 
 .. _Static-Files-Settings:
 
-Static Files Settings
----------------------
+Настройки Статических Файлов
+----------------------------
 
-Open the common settings file (:red:`settings/base.py`) file and look for the variable
-``INSTALLED_APPS``. Make sure it contains the app :redbold:`'django.contrib.staticfiles'`.
+Откройте общий файл настроек (:red:`settings/base.py`) и найдите переменную
+``INSTALLED_APPS``. Убедитесь, что она содержит приложение :redbold:`'django.contrib.staticfiles'`.
 
-Next go at the end of the file and find the line:
+Далее перейдите в конец файла и найдите строку:
 
 .. code-block:: python
 
     STATIC_URL = '/static/'
 
-This line tells Django to look for :orange:`static` files in
-a folder named static inside each of our apps.
+Эта строка указывает Django искать :orange:`статические` (static) файлы в папке
+static внутри каждого из наших приложений.
 
-However, some static files are used for the whole project and shouldn’t
-be inside a specific app. Go inside the :red:`taskbuster` folder, at the
-same level of the settings files, and create a directory named :orange:`static`.
+Однако, некоторые статические файлы используются для всего проекта
+и не должны быть внутри конкретного приложения. Перейдите в папку :red:`taskbuster`,
+на том же уровне где находятся файлы настроек, и создайте папку с именем :orange:`static`.
 
 .. code-block:: bash
 
     $ cd taskbuster
     $ mkdir static
 
-This directory will contain all the static files that are global
-for the project, like CSS or javascript files.
+Этот каталог будет содержать все статические файлы, которые являются
+глобальными для проекта, такие как CSS или файлы JavaScript.
 
-If you look at the beginning of the :red:`settings/base.py` file, you will find
+Если вы посмотрите на начало файла :red:`settings/base.py`, вы найдете строку
 
 .. code-block:: python
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-which points to the folder containing the folder that contains
-the actual file, i.e. the folder :red:`taskbuster`.
+которая указывает на папку, содержащую другую папку, которая содержит
+фактический файл, т.е. папку :red:`taskbuster`.
 
 .. note::
-    if you are working with a single :red:`settings.py` file located
-    inside the :red:`taskbuster` folder (without the extra :red:`settings` folder
-    we created here) you’ll have to redefine :orange:`BASE_DIR` in order to point
-    to the :red:`taskbuster` folder. This is because without the extra settings
-    folder in the middle, the previous :orange:`BASE_DIR` would point to the top
-    :red:`taskbuster_project` folder, instead of the :red:`taskbuster` folder.
-    You should redefine it with
+    если вы работаете с одним  файлом :red:`settings.py`, расположенным в папке
+    :red:`taskbuster` (без дополнительной папки настроек :red:`settings`,
+    которую мы создали здесь) вам придется переопределить :orange:`BASE_DIR`
+    для того, чтобы указать папку :red:`taskbuster`. Это потому, что без
+    дополнительной папки настроек в середине, предыдущий :orange:`BASE_DIR`
+    будет указывать на верхнюю папку :red:`taskbuster_project`, вместо папки
+    :red:`taskbuster`. Вы должны переопределить его так
 
 .. code-block:: python
 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-To tell Django to look for static files in the :red:`taskbuster/static`
-directory that we just created, write the following
-after the :orange:`STATIC_URL` statement:
+Чтобы указать Django искать статические файлы в папке :red:`taskbuster/static`,
+которую мы только что создали, напишите следующее после объявления :orange:`STATIC_URL`:
 
 .. code-block:: python
 
@@ -95,30 +95,30 @@ after the :orange:`STATIC_URL` statement:
     os.path.join(BASE_DIR, "static"),
     )
 
-Don’t forget the coma at the end! With this configuration, Django will
-look for static files in a folder named :red:`static` inside each app
-and into the :red:`taskbuster/static` folder we just created.
+Не забудьте запятую в конце! При такой конфигурации Django будет искать
+статические файлы в папке :red:`static` внутри каждого приложения и
+в папке :red:`taskbuster/static`, которую мы только что создали.
 
 .. _Templates-Settings:
 
-Templates Settings
+Настройки Шаблонов
 ------------------
 
-A similar thing happens with templates. By default,
-the Django template loader looks for templates in a
-folder named :red:`templates` inside each app.
+Подобная вещь происходит и с шаблонами.
+По умолчанию, загрузчик шаблонов Django
+ищет шаблоны в папке :red:`templates` внутри каждого приложения.
 
-But let’s create a :red:`templates` folder inside :red:`taskbuster` to contain
-all the templates that will be used throughout all
-the project, like :red:`base.html` or some error page.
+Но давайте создадим папку шаблонов :red:`templates` внутри :red:`taskbuster`,
+чтобы содержать все шаблоны, которые будут использоваться всюду по всему
+проекту, такие как :red:`base.html` или некоторые страницы ошибок.
 
 .. code-block:: bash
 
     $ cd taskbuster
     $ mkdir templates
 
-Next, update the settings files and edit the :red:`DIRS` key in
-the :red:`TEMPLATE` variable with:
+Затем обновите файлы настроек и отредактируйте ключ :red:`DIRS`
+в переменной :red:`TEMPLATE` так:
 
 .. code-block:: python
 
@@ -130,7 +130,7 @@ the :red:`TEMPLATE` variable with:
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                 django.template.context_processors.debug',
+                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -139,50 +139,51 @@ the :red:`TEMPLATE` variable with:
     },
     ]
 
-Like with the static files, Django will look for :red:`templates` located at
-a folder named templates inside each app and inside the
-:red:`taskbuster/templates` folder we just created.
+Как и со статическими файлами, Django будет искать шаблоны,
+расположенные в папке, названной :red:`templates` в каждом приложении и в
+папке :red:`taskbuster/templates`, которую мы только что создали.
 
 .. _Initializr-HTML5-Boilerplate-and-Twitter-Bootstrap:
 
-Initializr: HTML5 Boilerplate and Twitter Bootstrap
----------------------------------------------------
+Initializr: шаблон HTML5 и Twitter Bootstrap
+--------------------------------------------
 
-In order to check that the configuration of the templates and
-static files work, and because I like developing in Django
-with at least some CSS, we are going to include
-`HTML5 Boilerplate <http://html5boilerplate.com/>`_
-and `Bootstrap <http://getbootstrap.com/>`_.
-These tools help you create responsive templates that work in many browsers.
+В целях проверки, что конфигурация шаблонов и статических файлов работает,
+и также, потому что мне нравится разрабатывать в Django, по крайней мере,
+с некоторым CSS, мы собираемся включить
+`Шаблон HTML5 <http://html5boilerplate.com/>`_
+и `Bootstrap <http://getbootstrap.com/>`_.
+Эти инструменты помогают создавать адаптивные шаблоны,
+которые работают во многих браузерах.
 
-Here, we will use `Initializr <http://www.initializr.com/>`_,
-a mixed version that combines
-both HTML5 Boilerplate and Bootstrap. Go to its website,
-click on Get Custom Build, and select your project’s priorities.
-The configuration I selected for this project is the one shown
-on the image (except for the Apple Touch Icons,
-that are not used in this project):
+Здесь мы будем использовать `Initializr <http://www.initializr.com/>`_,
+смешанную версию, которая сочетает в себе Шаблон HTML5 и Bootstrap.
+Перейдите на этот сайт, нажмите на "Получить Пользовательскую Сборку"
+(Get Custom Build), и выберите приоритеты вашего проекта.
+Конфигурация, которую я выбрала для этого проекта, показана на изображении
+(за исключением Apple Touch Icons,
+которые не используются в этом проекте):
 
 .. figure:: _static/taskbuster_part2_initializr-1024x868.png
        :alt: initializr
        :align: center
 
-Once you download the package, unzip it and reorganize its contents:
+После того как вы загрузите пакет, распакуйте и преобразуйте его содержимое:
 
-* Move the files :red:`index.html`, :red:`404.html`, :red:`humans.txt` and :red:`robots.txt` into the :red:`taskbuster/templates` folder.
-* Change the name of :red:`index.html` to :red:`base.html`. The index file is usually the template of your Home page, but we will use it as a base template — all our site templates will inherit from this base template.
-* Move the other files and folders into the :red:`taskbuster/static` folder
-* If you have an icon you would like to use for your app, replace it for the :red:`favicon.ico` file (I recommend you use the same name).
-* I also removed the files :red:`apple-touch-icon.png`, :red:`browserconfig.xml`, :red:`tile-wide.png` and :red:`tile.png`.
+* Переместите файлы :red:`index.html`, :red:`404.html`, :red:`humans.txt` и :red:`robots.txt` в папку :red:`taskbuster/templates`.
+* Измените имя :red:`index.html` на :red:`base.html`. Индексный файл, как правило является шаблоном вашей Домашней страницы, но мы будем использовать его в качестве базового шаблона - все наши шаблоны сайта будут наследовать от этого базового шаблона.
+* Переместите другие файлы и папки в папку :red:`taskbuster/static`
+* Если у вас есть значок, который вы хотите использовать для вашего приложения, замените его на файл :red:`favicon.ico` (я рекомендую вам использовать то же имя).
+* Я также удалила файлы :red:`apple-touch-icon.png`, :red:`browserconfig.xml`, :red:`tile-wide.png` и :red:`tile.png`.
 
 .. _Home-Page-with-TDD-Tests-first:
 
-Home Page with TDD – Tests first
---------------------------------
+Домашняя страница с РЧТ – Сначала тесты
+---------------------------------------
 
-In order to see if the static files and templates are loading
-correctly, we will need a test. You know… Obey
-the testing Goat! :bolditalic:`Test first, test first!`
+Для того чтобы увидеть, загружаются ли статические файлы и шаблоны
+правильно, нам будет нужен тест. Ну вы знаете… Повинуйтесь Козе тестирования!
+:bolditalic:`Сначала тест, сначала тест!`
 
 .. figure:: _static/obey_the_testing_goat-300x290.jpg
        :alt: testing goat
@@ -190,64 +191,67 @@ the testing Goat! :bolditalic:`Test first, test first!`
 
        Сначала тест, Сначала тест!
 
-Actually, to work with Test Driven Development (TDD) we should have written
-the test even before setting the templates and static
-folders. But I wanted to finish editing the settings files first.
+На самом деле, чтобы работать с Разработкой Через Тестирование (РЧТ)
+- Test Driven Development, мы должны были написать тест даже прежде,
+чем установить шаблоны и статические папки. Но я сперва хотела закончить
+редактирование файлов настроек.
 
-First, we will convert the :red:`functional_tests` folder into a package
-by including an empty file named :red:`__init__.py` inside.
+Вначале, мы преобразуем папку :red:`functional_tests` в пакет,
+включив пустой файл с именем :red:`__init__.py` внутри.
 
 .. code-block:: bash
 
     touch functional_tests/__init__.py
 
-This way, we can run our functional tests with:
+Таким образом, мы можем запустить наши функциональные тесты вот так:
 
 .. code-block:: bash
 
     $ python manage.py test functional_tests
 
-However, the test runner only finds files that
-start with test, so let’s rename :red:`all_users.py` to :red:`test_all_users.py`.
+Однако, исполнитель тестов (test runner) находит только файлы, которые
+начинаются со слова "тест", так что давайте переименуем
+:red:`all_users.py` на :red:`test_all_users.py`.
 
-We will let git to manage this, so that the repository detects the movement correctly:
+Мы дадим git проконтролировать это, так что репозиторий обнаружит перемещение правильно:
 
 .. code-block:: bash
 
     $ git mv functional_tests/all_users.py functional_tests/test_all_users.py
 
-Run a development server using the :red:`tb_dev` environment, and then run
-the functional tests in your :red:`tb_test` environment.
-It should work as before, nothing broken!
+Запустите сервер разработки, используя среду :red:`tb_dev`, а затем выполните
+функциональные тесты в среде :red:`tb_test`.
+Все должно работать как и прежде, ничего не сломалось!
 
-But I’m sure you don’t like this game with the two environments, right?
-Having to run the server using tb_dev and testing with :red:`tb_test`.
-**Why can’t the test itself create the server?**
+Но я уверена, что вам не нравится эта игра с двумя средами, не так ли?
+Необходимость запускать сервер, используя :red:`tb_dev` и тестировать с :red:`tb_test`.
+**Почему сам тест не может создавать сервер?**
 
-**Moreover, changes made by these functional tests are persistent.**
-Imagine that during one test, we create an instance of a model
-(for example, a new user). We want that after running the test,
-that instance (the user) disappears from our database, right?
-But with functional tests, we are just running the development server
-and playing around with the development database, so these changes
-persist even after the test is finished.
+**Кроме того, изменения, сделанные этими функциональными тестами являются постоянными.**
+Представьте себе, что во время одного теста,
+мы создаем экземпляр модели (например, нового пользователя).
+Мы хотим, чтобы после выполнения теста, этот экземпляр (пользователь)
+исчез из нашей базы данных, верно?
+Но с функциональными тестами, мы просто запускаем сервер разработки
+и играем с базой данных разработки, так что эти изменения сохраняются
+даже после завершения теста.
 
-But don’t worry, there is the :orange:`LiveServerTestCase` to make
-our live much easier! |;)|
+Но не волнуйтесь, есть :orange:`LiveServerTestCase`, чтобы сделать
+нашу жизнь намного проще! |;)|
 
-As we will see, instances of this class create a server with
-a **testing database**, like when we run **unittests**.
+Как мы увидим, экземпляры этого класса создают сервер с **базой данных тестирования**,
+так же как и когда мы запускали **unittests**.
 
-Now, let’s edit the file :red:`functional_tests/test_all_users.py` and test
-that both templates and static folders work as expected.
-For example, we can test these two different things.
+Теперь, давайте отредактируем файл :red:`functional_tests/test_all_users.py`
+и проверим, что обе шаблоны и статические папки работают, как и ожидалось.
+Например, мы можем протестировать эти две разные вещи.
 
-* The title in the home page is “TaskBuster”
-* The text color of the h1 header in the home page is :red:`rgba(200, 50, 255, 1)` ~ pink color.
+* Заголовок в домашней странице - “TaskBuster”
+* Цвет текста заголовка h1 в домашней странице :red:`rgba(200, 50, 255, 1)` ~ розовый цвет.
 
-So let’s create this test!|br|
-Note: The file :red:`test_all_users.py` contains
-the ``NewVisitorTest`` created in Part I. You should replace that test by this one:
+Итак, давайте создадим этот тест! |br|
+Примечание: файл :red:`test_all_users.py` содержит ``NewVisitorTest``,
+созданный в части I. Вы должны заменить тот тест на этот:
 
 .. code-block:: python
     :linenos:
@@ -280,16 +284,16 @@ the ``NewVisitorTest`` created in Part I. You should replace that test by this o
             self.assertEqual(h1.value_of_css_property("color"),
                              "rgba(200, 50, 255, 1)")
 
-Let’s go through that code step by step:
+Давай пройдемся через этот код шаг за шагом:
 
-* First, we define an auxiliar function named ``get_full_url`` that takes one argument, the :orange:`namespace`
-    * A :orange:`namespace` is an identifier for a url. It’s a nice thing about Django: when you work with identifiers, you can change the url to whatever you want that the *code just works* as before.
-    * ``self.live_server_url`` gives you the local host url. We use this method because the test server uses another url (usually ``http://127.0.0.1:8021``), and this method is more flexible.
-    * reverse gives you the **relative** url of a given namespace, here ``/``
-    * The resulting function gives you the absolute url of that namespace (the sum of the previous two), ``http://127.0.0.1:8021/``.
-* The ``test_home_title`` method tests that the home page title contains the word :red:`TaskBuster`. We will create a template for that, so if the title exists it means that the template has been loaded correctly.
-* The ``test_h1_css`` method tests that the h1 text has the desired color. The css rule for the text color will be on a CSS file, which means that if the test passes, staticfiles are loading correctly.
-* Finally, note that we have removed the ``if __name__ == '__main__'`` statement, as :red:`functional_tests` is now a package that will run with the Django test runner.
+* Сначала, мы определяем вспомогательную функцию с именем ``get_full_url``, которая принимает один аргумент, :orange:`пространство имен`
+    * :orange:`Пространство имен` является идентификатором для url. Это хорошая вещь в Django: когда вы работаете с идентификаторами, вы можете изменить url-адрес, на то, что вы хотите, а *код просто работает* как и прежде.
+    * ``self.live_server_url`` дает вам локальный url-адрес узла. Мы используем этот метод потому, что тестовый сервер использует другой url (обычно ``http://127.0.0.1:8021``), и этот метод является более гибким.
+    * reverse дает **относительный** url-адрес из заданного пространства имен, здесь ``/``
+    * Полученная функция дает вам абсолютный адрес этого пространства имен (сумма двух предыдущих), ``http://127.0.0.1:8021/``.
+* Метод ``test_home_title`` проверяет, что заголовок домашней страницы содержит слово :red:`TaskBuster`. Мы создадим шаблон для этого, так что если заголовок существует, то это означает, что шаблон был загружен правильно.
+* Метод ``test_h1_css`` проверяет, что текст h1 имеет нужный цвет. Правило CSS для цвета текста будет в файле CSS, который означает, что если тест пройден, то статические файлы загружаются правильно.
+* Наконец, обратите внимание на то, что мы удалили, выражение ``if __name__ == '__main__'``, так как :red:`functional_tests` является теперь пакетом, который будет работать с исполнителем тестов Django.
 
 Once we have our test created, TDD tells us to follow the cycle:
 
