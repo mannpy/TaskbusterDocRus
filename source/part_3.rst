@@ -295,30 +295,32 @@ Initializr: шаблон HTML5 и Twitter Bootstrap
 * Метод ``test_h1_css`` проверяет, что текст h1 имеет нужный цвет. Правило CSS для цвета текста будет в файле CSS, который означает, что если тест пройден, то статические файлы загружаются правильно.
 * Наконец, обратите внимание на то, что мы удалили, выражение ``if __name__ == '__main__'``, так как :red:`functional_tests` является теперь пакетом, который будет работать с исполнителем тестов Django.
 
-Once we have our test created, TDD tells us to follow the cycle:
+Как только мы создали наш тест, РЧТ говорит нам следовать за циклом:
 
-* run the test and see it fail
-* write some code so that it corrects the test error message (only write the code that corrects the error message shown by the test failure, don’t anticipate other possible errors).
+* запускаем тест и смотрим, что он терпит неудачу
+* пишем некоторый код так, чтобы он исправлял тестовое сообщение об ошибке (написать только код, который исправляет сообщение об ошибке, показанное на тестовом провале, не ожидайте других возможных ошибок)
 
-We have to follow this cycle until the full test passes.
-It will be more clear in the next section.
+Мы должны следовать этому циклу до полного прохождения теста.
+Это будет более ясно в следующем разделе.
 
 .. _Home-Page-with-TDD-Code-next:
 
-Home Page with TDD – Code next
-------------------------------
+Домашняя страница с РЧТ – Далее код
+-----------------------------------
 
-Now that we have the functional test for our home page,
-we can run it and see how it fails. In our :red:`tb_test` environment:
+Теперь, когда у нас есть функциональный тест для нашей домашней страницы,
+мы можем запустить его и посмотреть, как он терпит неудачу.
+В наше тестовой среде :red:`tb_test`:
 
 .. code-block:: bash
 
     $ python manage.py test functional_tests
 
-We see that the first error it founds is that the namespace :redbold:`"home"`
-is not defined. Open the file :red:`taskbuster/urls.py` and import
-the view ``home`` from :red:`views.py` (depending on your Django version,
-you might need to create this file first: :red:`taskbuster/views.py`):
+Мы видим, что первая ошибка заключается в том, что пространство имен
+:redbold:`"home"` не определено. Откройте файл :red:`taskbuster/urls.py`
+и импортируйте представление ``home`` из :red:`views.py` (в зависимости от
+вашей версии Django, вам, возможно, потребуется создать этот файл сначала:
+:red:`taskbuster/views.py`):
 
 .. code-block:: python
 
