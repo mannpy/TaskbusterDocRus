@@ -295,39 +295,42 @@ Initializr: шаблон HTML5 и Twitter Bootstrap
 * Метод ``test_h1_css`` проверяет, что текст h1 имеет нужный цвет. Правило CSS для цвета текста будет в файле CSS, который означает, что если тест пройден, то статические файлы загружаются правильно.
 * Наконец, обратите внимание на то, что мы удалили, выражение ``if __name__ == '__main__'``, так как :red:`functional_tests` является теперь пакетом, который будет работать с исполнителем тестов Django.
 
-Once we have our test created, TDD tells us to follow the cycle:
+Как только мы создали наш тест, РЧТ говорит нам следовать за циклом:
 
-* run the test and see it fail
-* write some code so that it corrects the test error message (only write the code that corrects the error message shown by the test failure, don’t anticipate other possible errors).
+* запускаем тест и смотрим, что он терпит неудачу
+* пишем некоторый код так, чтобы он исправлял тестовое сообщение об ошибке (написать только код, который исправляет сообщение об ошибке, показанное на тестовом провале, не ожидайте других возможных ошибок)
 
-We have to follow this cycle until the full test passes.
-It will be more clear in the next section.
+Мы должны следовать этому циклу до полного прохождения теста.
+Это будет более ясно в следующем разделе.
 
 .. _Home-Page-with-TDD-Code-next:
 
-Home Page with TDD – Code next
-------------------------------
+Домашняя страница с РЧТ – Затем код
+-----------------------------------
 
-Now that we have the functional test for our home page,
-we can run it and see how it fails. In our :red:`tb_test` environment:
+Теперь, когда у нас есть функциональный тест для нашей домашней страницы,
+мы можем запустить его и посмотреть, как он терпит неудачу.
+В наше тестовой среде :red:`tb_test`:
 
 .. code-block:: bash
 
     $ python manage.py test functional_tests
 
-We see that the first error it founds is that the namespace :redbold:`"home"`
-is not defined. Open the file :red:`taskbuster/urls.py` and import
-the view ``home`` from :red:`views.py` (depending on your Django version,
-you might need to create this file first: :red:`taskbuster/views.py`):
+Мы видим, что первая ошибка заключается в том, что пространство имен
+:redbold:`"home"` не определено. Откройте файл :red:`taskbuster/urls.py`
+и импортируйте представление ``home`` из :red:`views.py` (в зависимости от
+вашей версии Django, вам, возможно, потребуется создать этот файл сначала:
+:red:`taskbuster/views.py`):
 
 .. code-block:: python
 
     from .views import home
 
-Note that we are using a relative import to import the ``home`` view.
-This way, we can change the name of our project or app without breaking the urls.
+Обратите внимание на то, что мы используем относительный импорт, чтобы импортировать
+домашнее представление ``home``. Таким образом, мы можем поменять
+имя нашего проекта или приложения, не ломая url-адреса.
 
-Next, add the following url:
+Затем, добавьте следующий URL-адрес:
 
 .. code-block:: python
 
@@ -337,38 +340,40 @@ Next, add the following url:
     ...
     ]
 
-If you run the test again it will fail, as we don’t have any home view defined.
-Let’s define a silly one, create the file :red:`taskbuster/views.py` and define the view:
+Если вы снова запустите тест, он потерпит неудачу, поскольку у нас нет определенного
+представления home. Давайте определим глупого, создайте файл :red:`taskbuster/views.py`
+и определите представление:
 
 .. code-block:: python
 
     def home(request):
          return ""
 
-which gives a test failure because the the home page
-doesn’t have TaskBuster in its title.
+что дает провал теста, потому что домашняя страница не имеет в его названии
+слова TaskBuster.
 
-Let’s focus on our templates now: open the file :red:`taskbuster/templates/base.html`
-file with a browser to have an idea of what’s in it. Quite awful right?
-That’s because the static files are not loading.
+Давайте сосредоточимся теперь на наших шаблонах: откройте файл
+:red:`taskbuster/templates/base.html` с браузера, чтобы иметь
+представление о том, что в нем. Совсем ужасно, да? Это потому, что статические
+файлы не загружаются.
 
-This :red:`base.html` will be our base template, and all the other project
-templates will inherit from this one, including the Home page.
+Этот :red:`base.html` будет нашим базовым шаблоном, а все остальные
+шаблоны проекта будет наследовать от него, включая Домашнюю страницу.
 
-So, it’s time for a unittest. Yeah, I know you just want to code
-the home page template but… :redbold:`Obey the Testing Goat!` |;)|
+Итак, пришло время для unittest. Да, я знаю, вы просто хотите написать код
+шаблона главной страницы, но… :redbold:`Повинуемся Козе Тестирования!` |;)|
 
-Unittests are meant to test small pieces of code, from the point
-of view of the developer. For example, it’s clear that the user
-doesn’t care if the home page template inherits from another
-template as long as it displays the contents. But the developer
-cares, and that’s why we should write a unittest. Moreover, I
-realized that when I have to think about the test, I write cleaner code.
-I guess it’s because having to define tests makes you think about what
-**exactly** you want the code to do. And that clears your mind |;)|
+UnitTests предназначены для проверки небольших фрагментов кода,
+с точки зрения разработчика. Например, понятно, что пользователя не волнует,
+наследуется ли шаблон домашней страницы от другого шаблона, пока он выводит
+на экран его содержимое. Но разработчик заботится, и именно поэтому
+мы должны написать UnitTest. Кроме того, я поняла, что, когда я должна
+думать о тесте, я пишу более чистый код. Я думаю, это потому, что
+необходимость определения тестов заставляет думать вас о том, **чего вы именно**
+хотите от вашего кода. И это очищает ваш ум |;)|
 
-Create a :red:`test.py` file inside the :red:`taskbuster` folder
-and write the following test:
+Создайте файл :red:`test.py` внутри папки :red:`taskbuster`
+и напишите следующий тест:
 
 .. code-block:: python
     :linenos:
@@ -388,14 +393,14 @@ and write the following test:
             response = self.client.get(reverse("home"))
             self.assertTemplateUsed(response, "base.html")
 
-You can run these tests using
+Вы можете запустить эти тесты, используя
 
 .. code-block:: bash
 
     $ python manage.py test taskbuster.test
 
-Obviously, they will fail… First, let’s create the
-:red:`taskbuster/index.html` template:
+Очевидно, что они потерпят неудачу… Сначала, давайте создадим шаблон
+:red:`taskbuster/index.html`:
 
 .. code-block:: bash
 
@@ -403,7 +408,7 @@ Obviously, they will fail… First, let’s create the
     $ mkdir taskbuster
     $ touch taskbuster/index.html
 
-and edit the :red:`taskbuster/views.py` so that it has:
+и отредактируйте :red:`taskbuster/views.py` так, чтобы он имел:
 
 .. code-block:: python
 
@@ -413,20 +418,21 @@ and edit the :red:`taskbuster/views.py` so that it has:
     def home(request):
         return render(request, "taskbuster/index.html", {})
 
-where we have used the shortcut render, which lets you load
-a template, create a context adding a bunch of variables by default,
-such as information about the current logged-in user, or the current
-language, render it and return an :red:`HttpResponse`, all in one function.
-Note: the information added by default depends on the template context
-processors that you have included in your settings file.
+где мы использовали функцию render которая позволяет загрузить шаблон,
+создать контекст, добавив кучу переменных по умолчанию, такие как
+информация о текущем вошедшем в систему пользователе или о текущем языке,
+выполняет его и возвращает объект :red:`HttpResponse`, все в одной функции.
+Примечание: информация, добавленная по умолчанию, зависит от контекста
+процессоров шаблона (template context processors),
+которые вы включили в свой файл настроек.
 
-If you run again the unittests, you’ll see that the first one passes,
-indicating that the home page uses the :red:`taskbuster/index.html` template.
-We just need to make this template to inherit from the :red:`base.html` template.
+Если вы снова запустите юниттесты (unittests), вы увидите, что первый из них проходит,
+указывая на то, что домашняя страница использует шаблон :red:`taskbuster/index.html`.
+Нам необходимо сделать так, чтобы этот шаблон наследовал от шаблона :red:`base.html`.
 
-So let’s edit the :red:`base.html` template. For now, we are only interested in the
-**title tag** inside the head tag. Look for it in
-the file and write the following inside:
+Поэтому давайте отредактируем шаблон :red:`base.html`. Сейчас нас интересует
+только **тег заголовка** (title) внутри главного тега head. Ищите его в файле
+и запишите следующее внутри:
 
 .. code-block:: html
 
@@ -436,42 +442,42 @@ the file and write the following inside:
     ...
     </head>
 
-These two template tags, ``{% block head_title %}`` and ``{% endblock %}`` mark
-the beginning and the end of a content block, which contents can be replaced
-by child templates. You will see it clearly in a minute.
+Эти два шаблонных тега, ``{% block head_title %}`` и ``{% endblock %}``
+обозначают начало и конец блока контента, содержание которого может
+быть заменено дочерними шаблонами. Вы увидите это ясно через минуту.
 
-Edit again the :red:`index.html` file, make it inherit from the :red:`base.html`
-file and add it a title:
+Отредактируйте снова файл :red:`index.html`, заставив его наследоваться от
+файла :red:`base.html` и добавьте это в заголовок.
 
 .. code-block:: html
 
     {% extends "base.html" %}
     {% block head_title %}TaskBuster Django Tutorial{% endblock %}
 
-The idea is that :red:`index.html` inherits from :red:`base.html` (it uses all its contents)
-except for the blocks marked with these special template tags. In that case,
-it substitutes the content inside the template tag of :red:`index.html` into
-the corresponding block in :red:`base.html`.
+Идея в том, что :red:`index.html` наследуется от :red:`base.html` (он использует все его содержимое),
+за исключением блоков, отмеченных с этими специальными шаблонными тегами.
+В этом случае, он заменяется содержимым в шаблонном теге :red:`index.html` в
+соответствующий блок в :red:`base.html`.
 
-Let’s run again the unittests:
+Давайте снова запустим модульные тесты unittests:
 
 .. code-block:: bash
 
     $ python manage.py test taskbuster.test
 
-Ok…!! Perfect, they passed!
+Ок...!! Замечательно, они прошли!
 
-What about the functional tests?
+А как насчет функциональных тестов?
 
 .. code-block:: bash
 
     $ python manage.py test functional_tests
 
-One passed, one failed. That’s something!
-But **we still have to take care about static files!**
+Один прошел, один не удался. Это что-то!
+Но **мы по-прежнему должны позаботиться о статических файлах!**
 
-First, let’s define our custom CSS file by editing
-the file :red:`taskbuster/static/css/main.css` and adding:
+Вначале, давайте определим наш собственный файл CSS, редактируя файл
+:red:`taskbuster/static/css/main.css` и добавив:
 
 .. code-block:: css
 
@@ -479,57 +485,59 @@ the file :red:`taskbuster/static/css/main.css` and adding:
     color: rgba(200, 50, 255, 1);
     }
 
-Then, edit again the :red:`base.html` and add this at the beginning
-of the file (even before the ``<!DOCTIPE html>`` statement):
+Затем, измените снова :red:`base.html` и добавьте это в начало файла
+(даже перед утверждением ``<!DOCTIPE html>``):
 
 .. code-block:: html
 
     {% load staticfiles %}
 
-then, look for all the links to static files and scripts of javascript like
+Потом, ищите все ссылки на статические файлы и скрипты JavaScript, такие как
 
 .. code-block:: html
 
     <link rel="stylesheet" href="css/xxx.css">
     <script src="js/xxx.js"></script>
 
-and change them into this:
+и замените их на это:
 
 .. code-block:: html
 
     <link rel="stylesheet" href="{% static 'css/xxx.css' %}">
     <script src="{% static 'js/xxx.js' %}">
 
-(you might want to remove the apple-touch-icon.png link).
+(возможно, вы захотите удалить ссылку на apple-touch-icon.png).
 
-Be careful with the ``""`` and ``''`` . Moreover,
-at the end of the file you will see something like
+Будьте осторожны с ``""`` и ``''`` . Кроме того,
+в конце файла вы увидите что-то вроде
 
 .. code-block:: html
 
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
 
-We cannot add the ``"{% static 'xxx' %}"`` tag because we would break the string.
-In this case, you can include the static file specifying the relative path:
+Мы не можем добавить тег ``"{% static 'xxx' %}"``, потому что мы бы повредили строку.
+В этом случае, можно включить статический файл указав относительный путь:
 
 .. code-block:: html
 
     <script>window.jQuery || document.write('<script src="static/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
 
 .. note::
-    although both methods for importing static files work, it’s better to use
-    the template tag if you are planning to use a content delivery network (CDN) for serving static files.
+    несмотря на то, что оба метода для импорта статическиз файлов работают,
+    лучше использовать шаблонный тег, если вы планируете использовать
+    сеть доставки контента - content delivery network (CDN) для обслуживания
+    статических файлов.
 
-Ok, let’s run the functional test again! Oh nooo! I got
-an ugly error that wasn’t there before!
+Хорошо, давайте снова запустим функциональный тест! О нееет!
+Я получила уродливую ошибку, чего там не было раньше!
 
-This is because the :orange:`LiveServerTestCase` doesn’t support static files…
+Это вызвано тем, что :orange:`LiveServerTestCase` не поддерживает статические файлы…
 
-But don’t worry, as usual, Django has a solution for it! I has another
-test class that supports static files!
+Но не волнуйтесь, как обычно, Django имеет решение для этого!
+У меня есть другой тестовый класс, который поддерживает статические файлы!
 
-To make the changes, edit the :red:`functional_tests/test_all_users.py`,
-remove the lines with a minus sign and add the ones with a plus:
+Чтобы внести изменения, отредактируйте :red:`functional_tests/test_all_users.py`,
+удалите строки со знаком "минус" и добавьте те, которые с "плюсом":
 
 .. code-block:: python
 
@@ -539,58 +547,61 @@ remove the lines with a minus sign and add the ones with a plus:
     - class HomeNewVisitorTest(LiveServerTestCase):
     + class HomeNewVisitorTest(StaticLiveServerTestCase):
 
-Run your tests again and yes! They passed! |:)|
+Запустите свои тесты снова и да! Они прошли! |:)|
 
-If you want to run both the unittests and functional tests
-together, you can use
+Если вы хотите выполнить модульные тесты unittests
+и функциональные тесты вместе, то можете использовать
 
 .. code-block:: bash
 
     $ python manage.py test
 
-You can also take a look at the localhost and see how pretty
-the home page is now that the CSS files are loading correctly |;)|
+Вы также можете взглянуть на localhost и посмотреть, насколько привлекательна
+домашняя страница, когда файлы CSS теперь загружаются правильно |;)|
 
-… probably not the best choice for the h1 color text, though!
+… вероятно, не самый лучший выбор цвета текста для h1, хотя!
 
 .. note::
-    if when running the functional tests you get an error with Selenium
-    that says *The browser appears to have exited before we could connect*,
-    try to upgrade selenium in your working environment:
+    если при выполнении функциональных тестов вы получите сообщение
+    об ошибке с Selenium, который говорит, что
+    *браузер, кажется, вышел прежде чем мы могли бы подключиться*,
+    попробуйте обновить selenium в вашей рабочей среде:
 
 .. code-block:: bash
 
     $ pip install -U selenium
 
-It should fix your problem |;)|
+Это должно решить вашу проблему |;)|
 
 .. _Commit-again-to-your-local-repository-and-Bitbucket:
 
-Commit again to your local repository and Bitbucket
----------------------------------------------------
+Снова фиксируем (commit) в локальный репозиторий и Bitbucket
+------------------------------------------------------------
 
-It’s a good time to make another commit!
+Сейчас самое хороше время, чтобы сделать еще один коммит!
 
 .. code-block:: bash
 
     $ git add .
     $ git status
 
-make sure you add only the files you want to commit.
-Moreover, at the beginning of the output it says
+убедитесь, что вы добавляете только те файлы, которые вы
+хотите зафиксировать.
+Кроме того, в начале вывода он говорит
 
 .. code-block:: bash
 
     Your branch is up-to-date with 'origin/master'
 
-which means that the actual master branch is at the same state as the origin
-branch in Bitbucket. Let’s see what happens after we commit the new changes:
+которое означает, что фактическое основное ответвление в том же состоянии
+как и ответвление источника в Bitbucket. Давайте посмотрим, что произойдет
+после того, как мы зафиксируем новые изменения:
 
 .. code-block:: bash
 
     $ git commit -m "Settings, static files and templates"
 
-And let’s check the status again…
+И давайте проверим состояние снова…
 
 .. code-block:: bash
 
@@ -601,24 +612,25 @@ And let’s check the status again…
 
     nothing to commit, working directory clean
 
-So the local master branch is one commit ahead of the origin master branch.
-Let’s fix that by pushing the recent commit into the Bitbucket repository:
+Таким образом, локальное основное ответвление - одна фиксация перед
+ведущим ответвлением источника. Давайте исправим это, вытолкнув
+последние фиксации в хранилище Bitbucket:
 
 .. code-block:: bash
 
     $ git push origin master
 
-So now, our branch is again up-to-date with the origin/master in Bitbucket.
+Так что теперь, наше ответвление снова актуально с origin/master в Bitbucket.
 
-That’s all for now, we have created a nice Home Page!
+Вот и все на данный момент, мы создали приятную домашнюю страницу!
 
-In the next part of this TaskBuster Django Tutorial, we will talk about
-configuring other files download with the Initializr package:
-:red:`robots.txt`, :red:`humans.txt` and the :red:`favicon.ico` image.
+В следующей части этого учебника TaskBuster Django, мы поговорим о настройке
+других файлов, скаченных с пакетом Initializr:
+:red:`robots.txt`, :red:`humans.txt` и изображение :red:`favicon.ico`
 
-Moreover, I’ll show you how to use coverage, a
-tool to measure how many code is covered by tests.
+Кроме того, я покажу вам, как использовать coverage (покрытие),
+инструмент для измерения того, насколько код покрыт тестами.
 
-Check the next part: :doc:`Website files and Testing with coverage </part_4>`
+Проверьте следующую часть: :doc:`Файлы веб-сайта и тестирование с coverage (покрытие) </part_4>`
 
-And remember to share it with your friends! |:)|
+И не забудьте поделиться этим с друзьями! |:)|
