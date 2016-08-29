@@ -51,7 +51,7 @@
 
 Мы добавим два блока в конце главного тега head в файле :red:`base.html`:
 
-.. code-block:: html
+.. code-block:: django
 
     {% block head_css %}{% endblock %}
     {% block head_javascript %}{% endblock %}
@@ -60,7 +60,7 @@
 на наших шаблонах. Затем, мы добавим :red:`блок navbar`, который
 оборачивает элемент :red:`navbar`:
 
-.. code-block:: html
+.. code-block:: django
 
     {% block navbar %}
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -76,7 +76,7 @@
 блоков :red:`jumbotron` и :red:`container` и вставим его в файл :red:`index.html`.
 Файл :red:`index.html` будет выглядеть так:
 
-.. code-block:: html
+.. code-block:: django
 
     {% extends "base.html" %}
 
@@ -93,7 +93,7 @@
 
 А в :red:`base.html` вам просто нужно добавить это заменяющее недостающее содержание:
 
-.. code-block:: html
+.. code-block:: django
 
     {% block content %}{% endblock %}
 
@@ -103,7 +103,7 @@
 И, наконец, иногда нам необходимо добавлять скрипты в конце html документа,
 поэтому перед тегом ``</body>`` добавьте строку:
 
-.. code-block:: html
+.. code-block:: django
 
     {% block footer_javascript %}{% endblock %}
 
@@ -222,7 +222,7 @@ url адреса и передает в качестве аргумента им
 Итак, перейдите к шаблону :red:`base.html` и добавьте следующую
 строку после тега заголовка:
 
-.. code-block:: html
+.. code-block:: django
 
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}"
     type="image/x-icon">
@@ -241,7 +241,7 @@ Coverage (покрытие) является полезным инструмен
 Мы будем устанавливать его только в среде тестирования, поэтому активируйте
 :red:`tb_test` и выполните команду:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pip install coverage
 
@@ -250,20 +250,20 @@ Coverage (покрытие) является полезным инструмен
 
 Затем, запустите свои тесты с использованием coverage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ coverage run --source='.' manage.py test
 
 который выполнит и модульные тесты unittests, и функциональные тесты.
 Вы можете увидеть отчет coverage набрав:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ coverage report
 
 Если вы хотите более приятное представление в html, используйте:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ coverage html
 
@@ -273,7 +273,7 @@ Coverage (покрытие) является полезным инструмен
 Однако эти команды создали файлы, которые мы не хотим сохранять
 системе в управлении версиями. Поэтому введите:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ echo ".coverage" >> .gitignore
     $ echo "htmlcov" >> .gitignore

@@ -56,7 +56,7 @@ static внутри каждого из наших приложений.
 и не должны быть внутри конкретного приложения. Перейдите в папку :red:`taskbuster`,
 на том же уровне где находятся файлы настроек, и создайте папку с именем :orange:`static`.
 
-.. code-block:: bash
+.. code-block:: console
 
     $ cd taskbuster
     $ mkdir static
@@ -112,7 +112,7 @@ static внутри каждого из наших приложений.
 чтобы содержать все шаблоны, которые будут использоваться всюду по всему
 проекту, такие как :red:`base.html` или некоторые страницы ошибок.
 
-.. code-block:: bash
+.. code-block:: console
 
     $ cd taskbuster
     $ mkdir templates
@@ -199,13 +199,13 @@ Initializr: шаблон HTML5 и Twitter Bootstrap
 Вначале, мы преобразуем папку :red:`functional_tests` в пакет,
 включив пустой файл с именем :red:`__init__.py` внутри.
 
-.. code-block:: bash
+.. code-block:: console
 
-    touch functional_tests/__init__.py
+    $ touch functional_tests/__init__.py
 
 Таким образом, мы можем запустить наши функциональные тесты вот так:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ python manage.py test functional_tests
 
@@ -215,7 +215,7 @@ Initializr: шаблон HTML5 и Twitter Bootstrap
 
 Мы дадим git проконтролировать это, так что репозиторий обнаружит перемещение правильно:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ git mv functional_tests/all_users.py functional_tests/test_all_users.py
 
@@ -312,7 +312,7 @@ Initializr: шаблон HTML5 и Twitter Bootstrap
 мы можем запустить его и посмотреть, как он терпит неудачу.
 В наше тестовой среде :red:`tb_test`:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ python manage.py test functional_tests
 
@@ -395,14 +395,14 @@ UnitTests предназначены для проверки небольших 
 
 Вы можете запустить эти тесты, используя
 
-.. code-block:: bash
+.. code-block:: console
 
     $ python manage.py test taskbuster.test
 
 Очевидно, что они потерпят неудачу… Сначала, давайте создадим шаблон
 :red:`taskbuster/index.html`:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ cd taskbuster/templates
     $ mkdir taskbuster
@@ -434,7 +434,7 @@ UnitTests предназначены для проверки небольших 
 только **тег заголовка** (title) внутри главного тега head. Ищите его в файле
 и запишите следующее внутри:
 
-.. code-block:: html
+.. code-block:: django
 
     <head>
     ...
@@ -449,7 +449,7 @@ UnitTests предназначены для проверки небольших 
 Отредактируйте снова файл :red:`index.html`, заставив его наследоваться от
 файла :red:`base.html` и добавьте это в заголовок.
 
-.. code-block:: html
+.. code-block:: django
 
     {% extends "base.html" %}
     {% block head_title %}TaskBuster Django Tutorial{% endblock %}
@@ -461,7 +461,7 @@ UnitTests предназначены для проверки небольших 
 
 Давайте снова запустим модульные тесты unittests:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ python manage.py test taskbuster.test
 
@@ -469,7 +469,7 @@ UnitTests предназначены для проверки небольших 
 
 А как насчет функциональных тестов?
 
-.. code-block:: bash
+.. code-block:: console
 
     $ python manage.py test functional_tests
 
@@ -488,7 +488,7 @@ UnitTests предназначены для проверки небольших 
 Затем, измените снова :red:`base.html` и добавьте это в начало файла
 (даже перед утверждением ``<!DOCTIPE html>``):
 
-.. code-block:: html
+.. code-block:: django
 
     {% load staticfiles %}
 
@@ -501,7 +501,7 @@ UnitTests предназначены для проверки небольших 
 
 и замените их на это:
 
-.. code-block:: html
+.. code-block:: django
 
     <link rel="stylesheet" href="{% static 'css/xxx.css' %}">
     <script src="{% static 'js/xxx.js' %}">
@@ -552,7 +552,7 @@ UnitTests предназначены для проверки небольших 
 Если вы хотите выполнить модульные тесты unittests
 и функциональные тесты вместе, то можете использовать
 
-.. code-block:: bash
+.. code-block:: console
 
     $ python manage.py test
 
@@ -567,7 +567,7 @@ UnitTests предназначены для проверки небольших 
     *браузер, кажется, вышел прежде чем мы могли бы подключиться*,
     попробуйте обновить selenium в вашей рабочей среде:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pip install -U selenium
 
@@ -580,7 +580,7 @@ UnitTests предназначены для проверки небольших 
 
 Сейчас самое хороше время, чтобы сделать еще один коммит!
 
-.. code-block:: bash
+.. code-block:: console
 
     $ git add .
     $ git status
@@ -589,7 +589,7 @@ UnitTests предназначены для проверки небольших 
 хотите зафиксировать.
 Кроме того, в начале вывода он говорит
 
-.. code-block:: bash
+.. code-block:: console
 
     Your branch is up-to-date with 'origin/master'
 
@@ -597,13 +597,13 @@ UnitTests предназначены для проверки небольших 
 как и ответвление источника в Bitbucket. Давайте посмотрим, что произойдет
 после того, как мы зафиксируем новые изменения:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ git commit -m "Settings, static files and templates"
 
 И давайте проверим состояние снова…
 
-.. code-block:: bash
+.. code-block:: console
 
     $ git status
     On branch master
@@ -616,7 +616,7 @@ UnitTests предназначены для проверки небольших 
 ведущим ответвлением источника. Давайте исправим это, вытолкнув
 последние фиксации в хранилище Bitbucket:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ git push origin master
 

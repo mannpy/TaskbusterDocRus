@@ -81,14 +81,14 @@ Git репозиторий, такие как <a class="reference external" href
 <h2>Установка Django 1.8<a class="headerlink" href="#django-1-8" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Во-первых, мы создадим виртуальную среду с <span class="red">Python3</span>, по умолчанию как Python.
 В вашем терминале, введите:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ which python3
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> which python3
 </pre></div>
 </div>
 <p>чтобы узнать ваш путь к <span class="red">python3</span>. В моем случае это было <code class="docutils literal"><span class="pre">/usr/local/bin/python3</span></code>. Далее,
 создайте виртуальную среду для разработки, и укажите Python3 как Python по умолчанию
 (напомню, что с virtualenvwrapper виртуальные среды создаются в папке
 <span class="red">~/.virtualenvs</span>, независимо от рабочей папки):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span>/usr/local/bin/python3 tb_dev
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> mkvirtualenv --python<span class="o">=</span>/usr/local/bin/python3 tb_dev
 </pre></div>
 </div>
 <p>Измените свой путь к Python, если он отличается от моего, а также измените имя
@@ -96,18 +96,18 @@ Git репозиторий, такие как <a class="reference external" href
 Вы увидите, что эта виртуальная среда теперь активна - командная оболочка
 будет выглядить как то так: <code class="docutils literal"><span class="pre">(tb_dev)[user&#64;host]$</span></code>.</p>
 <p>Вы можете отключить виртуальную среду написав:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ deactivate
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> deactivate
 </pre></div>
 </div>
 <p>и активировать заново так:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ workon tb_dev
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> workon tb_dev
 </pre></div>
 </div>
 <p>Обратите внимание, что если вы работаете в этой среде, когда вы вводите <span class="red">python</span>
 вы активируете <span class="red">python3</span>, и при вызове <span class="red">pip</span>, вы вызываете версию python3,
 <span class="red">pip3</span>. Круто!</p>
 <p>Готовы установить последнюю версию Django?! С активным tb_dev, введите:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install <span class="nv">Django</span><span class="o">==</span>1.8.14
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install <span class="nv">Django</span><span class="o">==</span>1.8.14
 </pre></div>
 </div>
 <p>Примечание: Вы можете проверить, есть ли новая версия, доступная <a class="reference external" href="https://www.djangoproject.com/download//">здесь</a>.</p>
@@ -115,7 +115,7 @@ Git репозиторий, такие как <a class="reference external" href
 <div class="section" id="sublime-text">
 <h2>Рабочий каталог и Sublime Text<a class="headerlink" href="#sublime-text" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Создайте новую папку на вашем компьютере, названную <span class="red">taskbuster_project</span>:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir taskbuster_project
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> mkdir taskbuster_project
 </pre></div>
 </div>
 <p>Эта папка будет главной папкой, содержащей Ваш проект Django, всю его
@@ -124,7 +124,7 @@ Git репозиторий, такие как <a class="reference external" href
 <p>Давайте создадим Sublime Text проект для управления всеми файлами внутри этой
 папки (или с помощью своего редактора). Здесь, я буду считать, что вы активировали
 <a class="reference external" href="http://www.marinamele.com/2014/03/install-and-configure-sublime-text-3.html">subl command</a> для открытия файлов с помощью терминала:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ subl taskbuster_project
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> subl taskbuster_project
 </pre></div>
 </div>
 <p>Эта команда откроет все файлы в папке <span class="red">tastbuster_project</span>.
@@ -165,23 +165,23 @@ Git репозиторий, такие как <a class="reference external" href
 потому что у нас еще нет определенного проекта! Но это как раз то, о чем мы говорили:
 создаем свой тест сначала, а затем код.</p>
 <p>Во-первых, мы создадим еще одну виртуальную среду для тестирования, с Django 1.8 в нем:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span>/usr/local/bin/python3 tb_test
-$ pip install <span class="nv">Django</span><span class="o">==</span>1.8.14
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> mkvirtualenv --python<span class="o">=</span>/usr/local/bin/python3 tb_test
+<span class="gp">$</span> pip install <span class="nv">Django</span><span class="o">==</span>1.8.14
 </pre></div>
 </div>
 <p>Далее, для того, чтобы имитировать работу браузера для нашего тестирования,
 мы будем использовать пакет <span class="red">Selenium</span> (перед его установкой вам нужно будет иметь браузер Firefox):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install --upgrade selenium
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install --upgrade selenium
 </pre></div>
 </div>
 <p>Перейдите в папку <span class="red">taskbuster_project</span> и создайте папку для <strong>функциональных тестов</strong>.
 Эта папка будет содержать все файлы, которые
 <strong>проверяют функциональность проекта с точки зрения пользователя.</strong>
 Создайте также файл <span class="red">all_users.py</span> в нем:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> taskbuster_project
-$ mkdir functional_tests <span class="c1"># создаем папку функциональных тестов</span>
-$ <span class="nb">cd</span> functional_tests
-$ touch all_users.py
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> taskbuster_project
+<span class="gp">$</span> mkdir functional_tests <span class="c1"># создаем папку функциональных тестов</span>
+<span class="gp">$</span> <span class="nb">cd</span> functional_tests
+<span class="gp">$</span> touch all_users.py
 </pre></div>
 </div>
 <p>Откройте этот файл с помощью вашего редактора и напишите в нем:</p>
@@ -250,11 +250,11 @@ $ touch all_users.py
 </li>
 </ul>
 <p>Давайте запустим этот скрипт:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python all_users.py
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> python all_users.py
 </pre></div>
 </div>
 <p>Результат показывает, как тестирование, очевидно, терпит неудачу. Вы увидите что-то подобное</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>FAIL: test_it_worked <span class="o">(</span>__main__.NewVisitorTest<span class="o">)</span>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">FAIL: test_it_worked (__main__.NewVisitorTest)</span>
 </pre></div>
 </div>
 <p>и <span class="red">AssertionError</span> с сообщением <span class="bolditalic">Welcome to Django</span> не найдено.</p>
@@ -263,7 +263,7 @@ $ touch all_users.py
 <div class="section" id="django">
 <h2>Создаем проект Django<a class="headerlink" href="#django" title="Ссылка на этот заголовок">¶</a></h2>
 <p>Зайдите внутрь папки <span class="red">taskbuster_project</span> и наберите:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ django-admin.py startproject taskbuster .
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> django-admin.py startproject taskbuster .
 </pre></div>
 </div>
 <p>Обратите внимание на точку в конце команды, это создаст проект taskbuster,
@@ -300,12 +300,12 @@ $ touch all_users.py
 <p>После того, как создали проект, мы можем запустить сервер разработки.
 Откройте вкладку в своем терминале с активированной средой <span class="red">tb_dev</span>,
 перейдите в папку <span class="red">taskbuster_project</span> и запустите</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python manage.py runserver
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> python manage.py runserver
 </pre></div>
 </div>
 <p>Может появиться предупреждение о миграции, но не волнуйтесь, мы вернемся к этому позже
 в этом учебнике. В конце вывода вы можете увидеть что-то вроде</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>Starting development server at http://127.0.0.1:8000/.
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">Starting development server at http://127.0.0.1:8000/.</span>
 </pre></div>
 </div>
 <p>Вы можете открыть браузер и проверить этот url-адрес, чтобы увидеть сообщение
@@ -313,12 +313,12 @@ $ touch all_users.py
 который мы создали <img alt="smile" src="_images/1f642.png" /></p>
 <p>Откройте другую вкладку терминала (с помощью ctrl+t или cmd+t) и активируйте среду
 <span class="red">tb_test</span>. Теперь, давайте запустим наш тест:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python functional_tests/all_users.py
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> python functional_tests/all_users.py
 </pre></div>
 </div>
 <p>И теперь вы должны увидеть сообщение:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>Ran <span class="m">1</span> <span class="nb">test</span> in 0.05s
-OK
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">Ran 1 test in 0.05s</span>
+<span class="go">OK</span>
 </pre></div>
 </div>
 <p>показывающее, что тест пройден! <img alt="smile" src="_images/1f642.png" /></p>
